@@ -1,1281 +1,402 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منقوشة - Manqooshi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Your existing head content remains the same until the closing </style> tag -->
+    <!-- Add this new style for the admin panel -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+        /* Admin Panel Styles */
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            color: white;
         }
         
-        :root {
-            --primary: #c52a1e;
-            --secondary: #e6b325;
-            --light: #f5f0e5;
-            --dark: #3d251e;
-            --accent: #8f4e2a;
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
         }
         
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            overflow-x: hidden;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%238f4e2a" stroke-width="2" stroke-dasharray="10,5" opacity="0.2"/></svg>');
-            background-size: 200px;
-        }
-        
-        /* Decorative shapes */
-        .manaqeesh-shape {
-            position: absolute;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.2;
-            z-index: -1;
-            animation: float 8s infinite ease-in-out;
-        }
-        
-        .shape-1 { 
-            width: 120px; 
-            height: 120px; 
-            top: 10%; 
-            left: 5%; 
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23c52a1e" stroke-width="3" stroke-dasharray="15,10" /></svg>');
-        }
-        .shape-2 { 
-            width: 90px; 
-            height: 90px; 
-            top: 25%; 
-            right: 10%; 
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23e6b325" stroke-width="2" stroke-dasharray="8,6" /></svg>');
-        }
-        .shape-3 { 
-            width: 80px; 
-            height: 80px; 
-            bottom: 15%; 
-            left: 15%; 
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="none" stroke="%238f4e2a" stroke-width="2" stroke-dasharray="12,7" /></svg>');
-        }
-        .shape-4 { 
-            width: 100px; 
-            height: 100px; 
-            bottom: 20%; 
-            right: 8%; 
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23c52a1e" stroke-width="3" stroke-dasharray="10,8" /></svg>');
-        }
-        
-        /* Header styles */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            padding: 1rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header-content {
+        .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
         }
         
-        .logo-container {
-            display: flex;
-            align-items: center;
+        .admin-title {
+            color: var(--secondary-yellow);
+            font-size: 1.8rem;
+        }
+        
+        .close-admin {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .category-editor {
+            margin-bottom: 30px;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .category-title {
+            color: var(--secondary-yellow);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .items-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 15px;
         }
         
-        .logo {
-            font-size: 2.8rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
+        .item-editor {
+            background-color: #444;
+            padding: 15px;
+            border-radius: 8px;
         }
         
-        .title {
-            display: flex;
-            flex-direction: column;
+        .form-group {
+            margin-bottom: 10px;
         }
         
-        .title h1 {
-            color: white;
-            font-size: 2.5rem;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
         }
         
-        .title span {
-            color: var(--secondary);
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            color: white;
-            text-align: left;
-        }
-        
-        .contact-info i {
-            margin-left: 8px;
-            color: var(--secondary);
-        }
-        
-        /* Carousel */
-        .carousel {
-            position: relative;
-            max-width: 1200px;
-            margin: 30px auto;
-            height: 400px;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 5px solid white;
-        }
-        
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-            height: 100%;
-        }
-        
-        .carousel-item {
-            min-width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(61, 37, 30, 0.9), transparent);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .carousel-caption h3 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-        }
-        
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        .form-group input, 
+        .form-group textarea {
             width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #666;
+            background-color: #555;
+            color: white;
+        }
+        
+        .form-group textarea {
+            min-height: 60px;
+        }
+        
+        .admin-buttons {
             display: flex;
             justify-content: space-between;
-            padding: 0 1rem;
+            margin-top: 20px;
         }
         
-        .carousel-btn {
-            background: rgba(255, 255, 255, 0.7);
+        .admin-btn {
+            padding: 10px 20px;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .save-btn {
+            background-color: var(--secondary-yellow);
+            color: #333;
+        }
+        
+        .export-btn {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--cart-blue);
+            color: white;
             width: 50px;
             height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .carousel-btn:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-        
-        /* Categories */
-        .categories {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        .categories h2 {
-            text-align: center;
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        
-        .categories h2::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 2px;
-        }
-        
-        .category-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 2rem;
-            position: sticky;
-            top: 80px;
-            z-index: 1002;
-            background: var(--light);
-            padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-        }
-        
-        .category-btn {
-            background: white;
-            border: 2px solid var(--secondary);
-            color: var(--dark);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background: var(--secondary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Menu items */
-        .menu {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            margin-top: 2rem;
-        }
-        .menu-category {
-            margin-bottom: 3rem;
-        }
-        .category-title {
-            font-size: 2rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            background: var(--secondary);
-            padding: 1rem 0.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            margin-top: 2rem;
-            border-bottom: none;
-        }
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        @media (max-width: 768px) {
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
-            .category-title {
-                font-size: 1.5rem;
-            }
-        }
-        
-        .menu-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .menu-item-img {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .menu-item-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(61, 37, 30, 0.8), transparent);
-            color: white;
-            padding: 1rem;
-        }
-        
-        .menu-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .menu-item p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .menu-item-content {
-            padding: 1.5rem;
-        }
-        
-        .price {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.4rem;
-            margin: 0.5rem 0;
-            display: block;
-        }
-        
-        .add-to-cart {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            width: 100%;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 10px rgba(197, 42, 30, 0.3);
-        }
-        
-        .add-to-cart:hover {
-            background: #a52218;
-            transform: scale(1.03);
-        }
-        
-        /* Cart */
-        .cart-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-        
-        .cart-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .cart-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--secondary);
-            color: var(--dark);
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .cart-modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .cart-content {
-            background: white;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-        }
-        
-        .cart-modal.active .cart-content {
-            transform: translateY(0);
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--light);
-            padding-bottom: 1rem;
-        }
-        
-        .cart-header h2 {
-            color: var(--primary);
-        }
-        
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
-        }
-        
-        .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-item-info {
-            flex: 1;
-        }
-        
-        .cart-item-name {
-            font-weight: 700;
-        }
-        
-        .cart-item-price {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        
-        .cart-item-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .cart-item-quantity {
-            width: 40px;
-            text-align: center;
-        }
-        
-        .cart-item-remove {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin: 1.5rem 0;
-        }
-        
-        .checkout-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-        
-        .checkout-btn:hover {
-            background: #1da851;
-            transform: scale(1.02);
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 2rem 1rem;
-            margin-top: 3rem;
-            text-align: center;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-section h3 {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .footer-section h3::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background: var(--secondary);
-        }
-        
-        .footer-section p {
-            margin: 0.5rem 0;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
             font-size: 1.2rem;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 999;
         }
         
-        .social-icons a:hover {
-            background: var(--secondary);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
-        }
-        
-        /* Animations */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .contact-info {
-                text-align: center;
-            }
-            
-            .carousel {
-                height: 300px;
-            }
-            
-            .carousel-caption h3 {
-                font-size: 1.5rem;
-            }
-            
-            .title h1 {
-                font-size: 2rem;
-            }
-            
-            .title span {
-                font-size: 1.5rem;
-            }
-            
-            .cart-container {
-                top: 10px;
-                left: 10px;
-            }
-            
-            .cart-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .carousel {
-                height: 250px;
-            }
-            
-            .category-buttons {
-                gap: 8px;
-            }
-            
-            .category-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .menu {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        html {
-            scroll-behavior: smooth;
+        .json-export {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            color: #0f0;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            white-space: pre;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
-    <!-- Decorative manaqeesh shapes -->
-    <div class="manaqeesh-shape shape-1"></div>
-    <div class="manaqeesh-shape shape-2"></div>
-    <div class="manaqeesh-shape shape-3"></div>
-    <div class="manaqeesh-shape shape-4"></div>
+    <!-- Your existing body content remains the same until the closing </footer> tag -->
+
+    <!-- Add this admin toggle button -->
+    <div class="admin-toggle" id="adminToggle">⚙️</div>
     
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-pizza-slice"></i>
-                </div>
-                <div class="title">
-                    <h1>منقوشة</h1>
-                    <span>Manqooshi</span>
-                </div>
+    <!-- Add this admin panel at the end of body -->
+    <div id="admin-panel">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2 class="admin-title">لوحة تحكم القائمة</h2>
+                <button class="close-admin" id="closeAdmin">إغلاق</button>
             </div>
             
-            <div class="contact-info">
-                <p><i class="fas fa-phone"></i> 71-182 561</p>
-                <p><i class="fas fa-map-marker-alt"></i> صيدا، مقابل مسجد الزعتري، بجانب سناك البابا</p>
-            </div>
-        </div>
-    </header>
-    
-    <!-- Carousel -->
-    <div class="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=1200&q=80');">
-                <div class="carousel-caption">
-                    <h3>منقوشة الزعتر</h3>
-                    <p>طازجة من الفرن مع زعتر وزيت زيتون</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg');">
-                <div class="carousel-caption">
-                    <h3>منقوشة الجبنة</h3>
-                    <p>جبنة عكاوي طازجة مع زعتر</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80');">
-                <div class="carousel-caption">
-                    <h3>منقوشة لحم</h3>
-                    <p>لحم بقري طازج مع بهارات مميزة</p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-controls">
-            <button class="carousel-btn prev"><i class="fas fa-chevron-right"></i></button>
-            <button class="carousel-btn next"><i class="fas fa-chevron-left"></i></button>
-        </div>
-    </div>
-    
-    <!-- Categories -->
-    <section class="categories">
-        <h2>فئاتنا</h2>
-        <div class="category-buttons">
-            <a href="#category-المناقيش" class="category-btn">المناقيش</a>
-            <a href="#category-مناقيش اللحمة" class="category-btn">مناقيش اللحمة</a>
-            <a href="#category-بيتزا" class="category-btn">بيتزا</a>
-            <a href="#category-معجنات" class="category-btn">معجنات</a>
-            <a href="#category-المشروبات" class="category-btn">المشروبات</a>
-        </div>
-    </section>
-    
-    <!-- Menu: All items grouped by category -->
-    <section class="menu" id="menu-root">
-        <!-- Menu categories and items will be generated by JavaScript -->
-    </section>
-    
-    <!-- Cart -->
-    <div class="cart-container">
-        <button class="cart-btn">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">0</span>
-        </button>
-    </div>
-    
-    <div class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>سلة المشتريات</h2>
-                <button class="close-cart"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="cart-items">
-                <!-- Cart items will be added here -->
-            </div>
-            <div class="cart-total">
-                <span>المجموع:</span>
-                <span class="total-price">0 ل.ل.</span>
-            </div>
-            <div class="cart-address">
-                <label for="customer-address" style="display:block; margin-bottom:5px; color:var(--dark); font-weight:700;">عنوان التوصيل</label>
-                <input type="text" id="customer-address" placeholder="أدخل عنوانك للتوصيل" style="width:100%; padding:0.7rem; border-radius:6px; border:1px solid #ccc; margin-bottom:1rem; font-size:1rem;">
-            </div>
-            <button class="checkout-btn">
-                <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
-            </button>
-        </div>
-    </div>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>عن منقوشة</h3>
-                <p>نقدم ألذ وأشهى المناقيش الطازجة منذ 1995، باستخدام أفضل المكونات وأساليب التحضير التقليدية.</p>
+            <div id="category-editors">
+                <!-- Categories will be added here dynamically -->
             </div>
             
-            <div class="footer-section">
-                <h3>ساعات العمل</h3>
-                <p>طوال أيام الأسبوع من الأحد إلى السبت ما عدا الجمعة: 7:30 صباحاً - 1:30 ظهراً، 5:30 مساءً - 11:00 مساءً</p>
-                <p>الجمعة: عطلة</p>
+            <div class="admin-buttons">
+                <button class="admin-btn save-btn" id="saveChanges">حفظ التغييرات</button>
+                <button class="admin-btn export-btn" id="exportJson">تصدير JSON</button>
             </div>
             
-            <div class="footer-section">
-                <h3>تابعونا</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
+            <div class="json-export-container" style="display: none;">
+                <h3>نسخ JSON لتحديث الموقع:</h3>
+                <textarea class="json-export" id="jsonExport" readonly></textarea>
+                <p>انسخ هذا النص واستبدل به محتوى الـ JSON في ملف HTML الخاص بك</p>
             </div>
         </div>
-        
-        <div class="copyright">
-            <p>© 2023 منقوشة. جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-    
+    </div>
+
+    <!-- Your existing script tag remains the same until the closing </script> tag -->
+    <!-- Add this new script for admin functionality -->
     <script>
-        // Menu data
-        const menuItems = [
-            {
-                id: 1,
-                name: "زعتر بلدي",
-                description: "زعتر وزيت زيتون مع سمسم",
-                price: 70000,
-                category: "المناقيش",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa5tgNx7OZx9E0AxOs8GtzVJcIpfcejbpsPQ&s"
-            },
-            {
-                id: 2,
-                name: "زعتر مع دبس الرمان",
-                description: "زعتر وزيت زيتون مع سمسم",
-                price: 80000,
-                category: "المناقيش",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa5tgNx7OZx9E0AxOs8GtzVJcIpfcejbpsPQ&s"
-            },
-            {
-                id: 3,
-                name: "جبنة عكاوي",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 100000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 4,
-                name: "بلغاري وقشقوان",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 150000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 5,
-                name: "فور تشيز",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 180000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 6,
-                name: "رغيف جبنة",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 180000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 7,
-                name: "بندورة وبصل",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 100000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 8,
-                name: "بندورة وبصل وجبنة",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 150000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 9,
-                name: "بندورة وبصل وبلغاري",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 150000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 10,
-                name: "لبنة وزعتر",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 100000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 11,
-                name: "جبنة عكاوي",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 100000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 12,
-                name: "جبنة عكاوي",
-                description: "جبنة عكاوي طازجة مع زعتر",
-                price: 100000,
-                category: "المناقيش",
-                image: "https://www.cozycabana.cafe/mwhdfgubng/bde6f96af7d4c4c9ff74c6cb6e778d16/o_1bqg96fj47pgcgj153m1dth17isc.jpg"
-            },
-            {
-                id: 13,
-                name: "منقوشة اللحمة",
-                description: "لحم بقري طازج مع بهارات مميزة",
-                price: 22000,
-                category: "مناقيش اللحمة",
-                image: "https://static.webteb.net/images/content/ramadanrecipe_recipe_1212_4072904d275-0480-40ad-b655-c742d47a373c.jpg"
-            },
-            {
-                id: 14,
-                name: "منقوشة كشك",
-                description: "كشك وزيت زيتون مع جوز",
-                price: 17000,
-                category: "المناقيش",
-                image: "https://assets.annahar.com/ContentFilesArchive/376366Image1-1180x677_d.jpg"
-            },
-            {
-                id: 15,
-                name: "منقوشة جبنة وزعتر",
-                description: "مزيج من الجبنة والزعتر",
-                price: 20000,
-                category: "المناقيش",
-                image: "https://kitchen.sayidaty.net/uploads/small/4d/4d2502fee989648624d767dd8ed0a245_w750_h500.jpg"
-            },
-            {
-                id: 16 ,
-                name: "منقوشة سبانخ",
-                description: "سبانخ طازجة مع جبنة وزيت",
-                price: 19000,
-                category: "المناقيش",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMQhrcEOD6Z9hqu1HhXBfEX_nv49AWo5S9OQ&s"
-            },
-            {
-                id: 17,
-                name: "منقوشة كباب",
-                description: "كباب حلال مع بصل وطماطم",
-                price: 25000,
-                category: "مناقيش اللحمة",
-                image: "https://images.unsplash.com/photo-1601924582970-9238bcb495d9?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: 18,
-                name: "كنافة",
-                description: "كنافة نابلسية مع جبنة",
-                price: 20000,
-                category: "الحلويات",
-                image: "https://images.unsplash.com/photo-1631008882687-254d4d1c9c8d?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: 19,
-                name: "مشروب التمر هندي",
-                description: "طازج ومبرد",
-                price: 8000,
-                category: "المشروبات",
-                image: "https://images.unsplash.com/photo-1621274403997-37aace184f49?auto=format&fit=crop&w=600&q=80"
-            }
-        ];
+        // =============================================
+        // Admin Panel Functionality
+        // =============================================
         
-        // List of categories to display (in order)
-        const categories = [
-            "المناقيش",
-            "مناقيش اللحمة",
-            "بيتزا",
-            "معجنات",
-            "المشروبات"
-        ];
-        
-        // Cart functionality
-        let cart = [];
-        const cartBtn = document.querySelector('.cart-btn');
-        const cartModal = document.querySelector('.cart-modal');
-        const closeCart = document.querySelector('.close-cart');
-        const cartItemsContainer = document.querySelector('.cart-items');
-        const cartCount = document.querySelector('.cart-count');
-        const totalPriceElement = document.querySelector('.total-price');
-        const menuContainer = document.querySelector('.menu');
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            renderMenuByCategory();
-            initCarousel();
-            
-            // Event listeners
-            cartBtn.addEventListener('click', () => {
-                cartModal.classList.add('active');
-                renderCartItems();
-            });
-            
-            closeCart.addEventListener('click', () => {
-                cartModal.classList.remove('active');
-            });
-            
-            document.querySelector('.checkout-btn').addEventListener('click', () => {
-                checkout();
-            });
+        // Menu data structure (embedded in the HTML)
+        const menuData = {
+            categories: [
+                {
+                    id: "manaqeesh",
+                    name: "المناقيش",
+                    items: [
+                        {
+                            id: "1",
+                            name: "منقوشة زعتر",
+                            description: "عجينة رقيقة مغطاة بزعتر ممزوج بزيت الزيتون والسمسم",
+                            price: 12,
+                            image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        },
+                        // Add all other items in the same format
+                        {
+                            id: "2",
+                            name: "منقوشة جبنة",
+                            description: "عجينة رقيقة مغطاة بمزيج من الجبنة الذائبة",
+                            price: 15,
+                            image: "https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        }
+                    ]
+                },
+                // Add all other categories in the same format
+                {
+                    id: "sandwiches",
+                    name: "سندويشات",
+                    items: [
+                        {
+                            id: "5",
+                            name: "سندويش شاورما دجاج",
+                            description: "شاورما دجاج مع خضار طازجة وصلصة الثوم",
+                            price: 16,
+                            image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize admin panel
+        const adminToggle = document.getElementById('adminToggle');
+        const adminPanel = document.getElementById('admin-panel');
+        const closeAdmin = document.getElementById('closeAdmin');
+        const categoryEditors = document.getElementById('category-editors');
+        const saveChangesBtn = document.getElementById('saveChanges');
+        const exportJsonBtn = document.getElementById('exportJson');
+        const jsonExportContainer = document.querySelector('.json-export-container');
+        const jsonExport = document.getElementById('jsonExport');
+
+        // Toggle admin panel
+        adminToggle.addEventListener('click', () => {
+            adminPanel.style.display = 'block';
+            renderAdminPanel();
         });
-        
-        // Render menu items grouped by category
-        function renderMenuByCategory() {
-            menuContainer.innerHTML = '';
-            categories.forEach(category => {
-                // Filter items for this category
-                const items = menuItems.filter(item => item.category === category);
-                if (items.length === 0) return;
-                // Create section for this category
-                const section = document.createElement('section');
-                section.className = 'menu-category';
-                section.id = `category-${category}`;
-                // Category title
-                const title = document.createElement('h2');
-                title.className = 'category-title';
-                title.textContent = category;
-                section.appendChild(title);
-                // Items container
-                const itemsDiv = document.createElement('div');
-                itemsDiv.className = 'menu-items';
-                itemsDiv.style.display = 'grid';
-                itemsDiv.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
-                itemsDiv.style.gap = '30px';
-                // Add items
-                items.forEach(item => {
-                    const menuItem = document.createElement('div');
-                    menuItem.classList.add('menu-item');
-                    menuItem.innerHTML = `
-                        <div class="menu-item-img" style="background-image: url('${item.image}')">
-                            <div class="menu-item-overlay">
-                                <h3>${item.name}</h3>
-                                <p>${item.description}</p>
-                            </div>
-                        </div>
-                        <div class="menu-item-content">
-                            <span class="price">${item.price.toLocaleString()} ل.ل.</span>
-                            <button class="add-to-cart" data-id="${item.id}">
-                                <i class="fas fa-plus"></i> إضافة إلى السلة
-                            </button>
-                        </div>
-                    `;
-                    itemsDiv.appendChild(menuItem);
-                });
-                section.appendChild(itemsDiv);
-                menuContainer.appendChild(section);
-            });
-            // Add event listeners to add-to-cart buttons
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.add-to-cart').dataset.id);
-                    addToCart(id);
-                    // Animation effect
-                    const btn = e.target.closest('.add-to-cart');
-                    btn.innerHTML = '<i class="fas fa-check"></i> تمت الإضافة';
-                    btn.style.background = '#2ecc71';
-                    setTimeout(() => {
-                        btn.innerHTML = '<i class="fas fa-plus"></i> إضافة إلى السلة';
-                        btn.style.background = '';
-                    }, 1500);
-                });
-            });
-        }
-        
-        // Add item to cart
-        function addToCart(id) {
-            const item = menuItems.find(item => item.id === id);
-            const existingItem = cart.find(cartItem => cartItem.id === id);
+
+        closeAdmin.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        // Render admin panel with editable fields
+        function renderAdminPanel() {
+            categoryEditors.innerHTML = '';
             
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({...item, quantity: 1});
-            }
-            
-            updateCartCount();
-        }
-        
-        // Update cart count
-        function updateCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            cartCount.textContent = count;
-        }
-        
-        // Render cart items
-        function renderCartItems() {
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="empty-cart">سلة المشتريات فارغة</p>';
-                totalPriceElement.textContent = '0 ل.ل.';
-                return;
-            }
-            
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+            menuData.categories.forEach(category => {
+                const categoryEditor = document.createElement('div');
+                categoryEditor.className = 'category-editor';
                 
-                const cartItem = document.createElement('div');
-                cartItem.classList.add('cart-item');
-                cartItem.innerHTML = `
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${item.price.toLocaleString()} ل.ل.</div>
-                    </div>
-                    <div class="cart-item-actions">
-                        <button class="cart-item-qty cart-item-minus" data-id="${item.id}" style="width:30px;height:30px;border-radius:50%;background:var(--secondary);color:white;border:none;font-size:1.2rem;cursor:pointer;">-</button>
-                        <span class="cart-item-quantity" style="width:30px;display:inline-block;text-align:center;">${item.quantity}</span>
-                        <button class="cart-item-qty cart-item-plus" data-id="${item.id}" style="width:30px;height:30px;border-radius:50%;background:var(--secondary);color:white;border:none;font-size:1.2rem;cursor:pointer;">+</button>
-                        <button class="cart-item-remove" data-id="${item.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+                categoryEditor.innerHTML = `
+                    <h3 class="category-title">${category.name}</h3>
+                    <div class="items-container" id="items-${category.id}"></div>
+                    <button class="admin-btn" onclick="addNewItem('${category.id}')" style="background-color: #2a9d8f; margin-top: 10px;">
+                        + إضافة عنصر جديد
+                    </button>
                 `;
-                cartItemsContainer.appendChild(cartItem);
-            });
-            
-            totalPriceElement.textContent = total.toLocaleString() + ' ل.ل.';
-            
-            // Add event listeners to remove buttons
-            document.querySelectorAll('.cart-item-remove').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.cart-item-remove').dataset.id);
-                    removeFromCart(id);
-                });
-            });
-
-            // Plus button
-            document.querySelectorAll('.cart-item-plus').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.cart-item-plus').dataset.id);
-                    changeCartQuantity(id, 1);
-                });
-            });
-
-            // Minus button
-            document.querySelectorAll('.cart-item-minus').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.cart-item-minus').dataset.id);
-                    changeCartQuantity(id, -1);
+                
+                categoryEditors.appendChild(categoryEditor);
+                
+                // Render items for this category
+                const itemsContainer = document.getElementById(`items-${category.id}`);
+                category.items.forEach(item => {
+                    itemsContainer.appendChild(createItemEditor(category.id, item));
                 });
             });
         }
-        
-        // Remove item from cart
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartCount();
-            renderCartItems();
-        }
-        
-        // Checkout via WhatsApp
-        function checkout() {
-            if (cart.length === 0) return;
-            
-            let message = "مرحباً، أود طلب:\n";
-            
-            cart.forEach(item => {
-                message += `${item.name} - ${item.quantity} × ${item.price.toLocaleString()} ل.ل.\n`;
-            });
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            message += `\nالمجموع: ${total.toLocaleString()} ل.ل.`;
-            
-            const addressInput = document.getElementById('customer-address');
-            const customerAddress = addressInput ? addressInput.value.trim() : '';
-            if (customerAddress) {
-                message += `\n\nالعنوان: ${customerAddress}`;
-            } else {
-                message += `\n\nالعنوان: لم يتم إدخال عنوان`;
-            }
-            
-            message += "\nشكراً!";
-            
-            const phone = "71182561";
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/961${phone}?text=${encodedMessage}`;
-            
-            if (!customerAddress) {
-                alert('يرجى إدخال عنوان التوصيل قبل إرسال الطلب.');
-                return;
-            }
-            
-            window.open(whatsappUrl, '_blank');
-            cart = [];
-            updateCartCount();
-            cartModal.classList.remove('active');
-        }
-        
-        // Carousel functionality
-        function initCarousel() {
-            const carousel = document.querySelector('.carousel-inner');
-            const items = document.querySelectorAll('.carousel-item');
-            const prevBtn = document.querySelector('.carousel-btn.prev');
-            const nextBtn = document.querySelector('.carousel-btn.next');
-            
-            let currentIndex = 0;
-            const totalItems = items.length;
-            
-            function goToSlide(index) {
-                const totalItems = getTotalItems();
-                if (index < 0) index = totalItems - 1;
-                else if (index >= totalItems) index = 0;
 
-                currentIndex = index;
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }
+        // Create item editor element
+        function createItemEditor(categoryId, item) {
+            const itemEditor = document.createElement('div');
+            itemEditor.className = 'item-editor';
+            itemEditor.dataset.id = item.id;
             
-            prevBtn.addEventListener('click', () => {
-                goToSlide(currentIndex - 1);
-            });
+            itemEditor.innerHTML = `
+                <div class="form-group">
+                    <label>اسم العنصر:</label>
+                    <input type="text" value="${item.name}" class="item-name">
+                </div>
+                <div class="form-group">
+                    <label>الوصف:</label>
+                    <textarea class="item-description">${item.description}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>السعر (ر.س):</label>
+                    <input type="number" value="${item.price}" class="item-price" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>رابط الصورة:</label>
+                    <input type="text" value="${item.image}" class="item-image">
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <button class="admin-btn" onclick="updateItem('${categoryId}', '${item.id}')" style="background-color: var(--secondary-yellow);">
+                        تحديث
+                    </button>
+                    <button class="admin-btn" onclick="removeItem('${categoryId}', '${item.id}')" style="background-color: var(--primary-red);">
+                        حذف
+                    </button>
+                </div>
+            `;
             
-            nextBtn.addEventListener('click', () => {
-                goToSlide(currentIndex + 1);
-            });
-            
-            // Auto slide
-            setInterval(() => {
-                goToSlide(currentIndex + 1);
-            }, 5000);
+            return itemEditor;
         }
 
-        // Change cart quantity
-        function changeCartQuantity(id, delta) {
-            const item = cart.find(cartItem => cartItem.id === id);
+        // Add new item to category
+        function addNewItem(categoryId) {
+            const category = menuData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const newId = Date.now().toString(); // Generate unique ID
+            const newItem = {
+                id: newId,
+                name: "عنصر جديد",
+                description: "وصف العنصر",
+                price: 0,
+                image: ""
+            };
+            
+            category.items.push(newItem);
+            
+            // Add to UI
+            const itemsContainer = document.getElementById(`items-${categoryId}`);
+            itemsContainer.appendChild(createItemEditor(categoryId, newItem));
+        }
+
+        // Update item
+        function updateItem(categoryId, itemId) {
+            const category = menuData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const item = category.items.find(i => i.id === itemId);
             if (!item) return;
-            item.quantity += delta;
-            if (item.quantity < 1) {
-                // Optionally remove item if quantity goes below 1
-                cart = cart.filter(cartItem => cartItem.id !== id);
-            }
-            updateCartCount();
-            renderCartItems();
+            
+            const itemEditor = document.querySelector(`.item-editor[data-id="${itemId}"]`);
+            
+            item.name = itemEditor.querySelector('.item-name').value;
+            item.description = itemEditor.querySelector('.item-description').value;
+            item.price = parseFloat(itemEditor.querySelector('.item-price').value);
+            item.image = itemEditor.querySelector('.item-image').value;
+            
+            // Update the main menu display
+            updateMenuDisplay();
         }
 
-        function getCarouselItems() {
-            return document.querySelectorAll('.carousel-item');
+        // Remove item
+        function removeItem(categoryId, itemId) {
+            const category = menuData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            category.items = category.items.filter(i => i.id !== itemId);
+            
+            // Remove from UI
+            const itemEditor = document.querySelector(`.item-editor[data-id="${itemId}"]`);
+            if (itemEditor) {
+                itemEditor.remove();
+            }
+            
+            // Update the main menu display
+            updateMenuDisplay();
         }
-        function getTotalItems() {
-            return getCarouselItems().length;
+
+        // Save changes to localStorage
+        saveChangesBtn.addEventListener('click', () => {
+            localStorage.setItem('menuData', JSON.stringify(menuData));
+            alert('تم حفظ التغييرات بنجاح!');
+            updateMenuDisplay();
+        });
+
+        // Export JSON
+        exportJsonBtn.addEventListener('click', () => {
+            jsonExport.value = JSON.stringify(menuData, null, 2);
+            jsonExportContainer.style.display = 'block';
+        });
+
+        // Update the main menu display
+        function updateMenuDisplay() {
+            // This will regenerate the entire menu based on the current menuData
+            // You'll need to implement this based on your existing menu rendering logic
+            // For now, we'll just reload the page to see changes
+            location.reload();
         }
+
+        // Initialize
+        renderAdminPanel();
     </script>
 </body>
 </html>
