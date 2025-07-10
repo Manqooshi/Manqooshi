@@ -1,402 +1,1707 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Your existing head content remains the same until the closing </style> tag -->
-    <!-- Add this new style for the admin panel -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منقوشة - Manqooshi</title>
     <style>
-        /* Admin Panel Styles */
-        #admin-panel {
-            display: none;
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --primary-red: #e63946;
+            --secondary-yellow: #ffbe0b;
+            --accent-brown: #6a4c3d;
+            --cart-blue: #1d3557;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --light-text: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 1000;
-            padding: 20px;
-            overflow-y: auto;
-            color: white;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23e63946" stroke-width="2" stroke-dasharray="5,5"/><circle cx="30" cy="30" r="15" fill="none" stroke="%23ffbe0b" stroke-width="1.5"/><circle cx="70" cy="70" r="15" fill="none" stroke="%23ffbe0b" stroke-width="1.5"/><path d="M20,50 Q50,20 80,50 Q50,80 20,50" fill="none" stroke="%236a4c3d" stroke-width="1"/></svg>');
+            background-size: 200px;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
         }
         
-        .admin-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #222;
-            padding: 20px;
-            border-radius: 10px;
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
         }
         
-        .admin-header {
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #444;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .admin-title {
-            color: var(--secondary-yellow);
-            font-size: 1.8rem;
+        .logo {
+            display: flex;
+            align-items: center;
         }
         
-        .close-admin {
-            background: var(--primary-red);
-            color: white;
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .contact-info a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary-red);
+        }
+        
+        .address {
+            font-size: 0.9rem;
+            color: var(--accent-brown);
+        }
+        
+        /* Navigation Styles */
+        nav {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 90;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 2rem 2rem 0 2rem; /* Increased top padding for more space */
+            scrollbar-width: none;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-list {
+            display: inline-flex;
+            list-style: none;
+        }
+        
+        .category-item {
+            margin-left: 1.5rem;
+        }
+        
+        .category-item:first-child {
+            margin-left: 0;
+        }
+        
+        .category-btn {
+            background: none;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-text);
             cursor: pointer;
-            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
         
-        .category-editor {
-            margin-bottom: 30px;
-            background-color: #333;
-            padding: 15px;
-            border-radius: 8px;
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-red);
+            transition: var(--transition);
         }
         
-        .category-title {
-            color: var(--secondary-yellow);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+        .category-btn:hover {
+            color: var(--primary-red);
         }
         
-        .items-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-        }
-        
-        .item-editor {
-            background-color: #444;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .form-group {
-            margin-bottom: 10px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #ddd;
-        }
-        
-        .form-group input, 
-        .form-group textarea {
+        .category-btn:hover::before {
             width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #666;
-            background-color: #555;
+            right: auto;
+            left: 0;
+        }
+        
+        .category-btn.active {
+            color: var(--primary-red);
+        }
+        
+        .category-btn.active::before {
+            width: 100%;
+        }
+        
+        /* Hero Carousel */
+        .hero {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .carousel {
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-inner {
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             color: white;
+            text-align: center;
         }
         
-        .form-group textarea {
-            min-height: 60px;
+        .carousel-caption h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-yellow);
         }
         
-        .admin-buttons {
+        .carousel-caption p {
+            font-size: 1.2rem;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            padding: 0 1rem;
         }
         
-        .admin-btn {
-            padding: 10px 20px;
+        .carousel-control {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
             border: none;
-            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
         }
         
-        .save-btn {
-            background-color: var(--secondary-yellow);
-            color: #333;
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
         
-        .export-btn {
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .carousel-indicator.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        /* Menu Section */
+        .menu {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .menu-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 220px; /* Increased to avoid nav overlap */
+            border-radius: 18px;
+            box-shadow: 0 4px 24px 0 rgba(30, 41, 59, 0.07);
+            padding: 2rem 1.5rem;
+            position: relative;
+            background: linear-gradient(135deg, #fff7e6 0%, #ffe5ec 100%);
+            overflow: hidden;
+        }
+        .menu-section:nth-of-type(1) {
+            background: linear-gradient(120deg, #fff7e6 0%, #ffe5ec 100%);
+        }
+        .menu-section:nth-of-type(2) {
+            background: linear-gradient(120deg, #e0f7fa 0%, #f8f9fa 100%);
+        }
+        .menu-section:nth-of-type(3) {
+            background: linear-gradient(120deg, #f1f8e9 0%, #f8f9fa 100%);
+        }
+        .menu-section:nth-of-type(4) {
+            background: linear-gradient(120deg, #f3e5f5 0%, #f8f9fa 100%);
+        }
+        .menu-section:nth-of-type(5) {
+            background: linear-gradient(120deg, #e3f2fd 0%, #f8f9fa 100%);
+        }
+        .menu-section:nth-of-type(6) {
+            background: linear-gradient(120deg, #fffde7 0%, #f8f9fa 100%);
+        }
+        .menu-section::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 40% 40%, var(--secondary-yellow) 0%, transparent 70%);
+            opacity: 0.13;
+            z-index: 0;
+        }
+        .menu-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 60% 60%, var(--primary-red) 0%, transparent 70%);
+            opacity: 0.10;
+            z-index: 0;
+        }
+        .menu-section > * { position: relative; z-index: 1; }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--secondary-yellow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-brown);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background-color: var(--primary-red);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .menu-item:hover .item-image img {
+            transform: scale(1.05);
+        }
+        
+        .item-details {
+            padding: 1.5rem;
+        }
+        
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+        
+        .item-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .item-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-brown);
+        }
+        
+        .add-to-cart {
             background-color: var(--primary-red);
             color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .admin-toggle {
+        .add-to-cart:hover {
+            background-color: #c1121f;
+            transform: scale(1.05);
+        }
+        
+        /* Cart Styles */
+        .cart-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 2rem;
+            left: 2rem;
             background-color: var(--cart-blue);
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            z-index: 999;
+            box-shadow: var(--shadow);
+            z-index: 80;
+            transition: var(--transition);
         }
         
-        .json-export {
+        .cart-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary-red);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
             width: 100%;
-            height: 200px;
-            background-color: #333;
-            color: #0f0;
-            font-family: monospace;
-            padding: 10px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200 !important; /* Ensure overlay is above header */
+            display: none;
+            justify-content: flex-end;
+        }
+        
+        .cart-overlay.active {
+            display: flex;
+        }
+        
+        .cart-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            height: 100%;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding-top: 100px; /* Added to prevent header overlap */
+            z-index: 201; /* Ensure cart is above overlay and header */
+        }
+        
+        .cart-overlay.active .cart-container {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .cart-container {
+                max-width: 100%;
+                padding-top: 80px; /* Slightly less for mobile if header is smaller */
+            }
+        }
+        
+        .cart-header {
+            padding: 1.5rem;
+            background-color: var(--cart-blue);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
             border-radius: 5px;
-            margin-top: 20px;
-            white-space: pre;
-            overflow-x: auto;
+            overflow: hidden;
+            margin-left: 1rem;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: var(--accent-brown);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--cart-blue);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0.2rem;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            margin-right: auto;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .delivery-address {
+            margin-bottom: 1.5rem;
+        }
+        
+        .delivery-address label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .delivery-address textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .checkout-btn:hover {
+            background-color: #c1121f;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--cart-blue) 70%, var(--primary-red) 100%);
+            color: var(--light-text);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--secondary-yellow);
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.15);
+        }
+        
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-info-item i {
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--secondary-yellow);
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary-yellow);
+            color: var(--cart-blue);
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--light-text);
+        }
+        
+        /* Section Title: Make font color darker for readability */
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-brown);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background-color: var(--primary-red);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .menu-section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .menu-item {
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .contact-info {
+                align-items: flex-start;
+                margin-top: 1rem;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            
+            nav {
+                top: 140px;
+            }
+            
+            .menu-section {
+                scroll-margin-top: 240px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .nav-container {
+                padding: 1.5rem 1rem 0 1rem; /* More top padding for mobile */
+            }
+            
+            .category-item {
+                margin-left: 1rem;
+            }
+            
+            .cart-container {
+                max-width: 100%;
+            }
+            .nav-container {
+                padding-top: 1.2rem !important;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-container, .menu, .nav-container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero {
+                height: 250px;
+            }
+            
+            .carousel-caption {
+                padding: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .item-name {
+                font-size: 1.1rem;
+            }
+            
+            .item-price {
+                font-size: 1rem;
+            }
+            
+            .add-to-cart {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            nav {
+                top: 120px;
+            }
+            
+            .menu-section {
+                scroll-margin-top: 170px;
+            }
+        }
+        .address-error {
+            display: none;
+            background: linear-gradient(90deg, var(--primary-red) 60%, var(--secondary-yellow) 100%);
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            margin-top: 0.7rem;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 12px rgba(230,57,70,0.15);
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translateX(-2px); }
+            20%, 80% { transform: translateX(4px); }
+            30%, 50%, 70% { transform: translateX(-8px); }
+            40%, 60% { transform: translateX(8px); }
         }
     </style>
 </head>
 <body>
-    <!-- Your existing body content remains the same until the closing </footer> tag -->
-
-    <!-- Add this admin toggle button -->
-    <div class="admin-toggle" id="adminToggle">⚙️</div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1><span style="color: var(--primary-red)">منقوشة</span> <span style="color: var(--cart-blue)">Manqooshi</span></h1>
+            </div>
+            <div class="contact-info">
+                <a href="tel:+96171182561" style="display: flex; align-items: center; gap: 0.7rem; font-size: 1.3rem; font-weight: 700;">
+                    <span style="font-size:2.1rem;">🚚</span>
+                    <span dir="ltr" style="unicode-bidi: embed; letter-spacing:1px;">71 - 182 561</span>
+                </a>
+                <div class="address">الرياض، حي العليا، شارع الملك فهد</div>
+            </div>
+        </div>
+    </header>
     
-    <!-- Add this admin panel at the end of body -->
-    <div id="admin-panel">
-        <div class="admin-container">
-            <div class="admin-header">
-                <h2 class="admin-title">لوحة تحكم القائمة</h2>
-                <button class="close-admin" id="closeAdmin">إغلاق</button>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="category-list" id="categoryList">
+                <li class="category-item">
+                    <button class="category-btn active" data-category="manaqeesh">المناقيش</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" data-category="sandwiches">سندويشات</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" data-category="meals">وجبات</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" data-category="salads">سلطات</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" data-category="drinks">مشروبات</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" data-category="desserts">حلويات</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="مناقيش">
+                    <div class="carousel-caption">
+                        <h2>أجود أنواع المناقيش</h2>
+                        <p>طازجة من الفرن إلى طاولتك</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="عروض خاصة">
+                    <div class="carousel-caption">
+                        <h2>عروض خاصة</h2>
+                        <p>احصل على خصم 20% عند الطلب عبر الواتساب</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="توصيل سريع">
+                    <div class="carousel-caption">
+                        <h2>توصيل سريع</h2>
+                        <p>خلال 30 دقيقة أو أقل</p>
+                    </div>
+                </div>
             </div>
-            
-            <div id="category-editors">
-                <!-- Categories will be added here dynamically -->
+            <div class="carousel-controls">
+                <button class="carousel-control" id="prevBtn">&#10094;</button>
+                <button class="carousel-control" id="nextBtn">&#10095;</button>
             </div>
-            
-            <div class="admin-buttons">
-                <button class="admin-btn save-btn" id="saveChanges">حفظ التغييرات</button>
-                <button class="admin-btn export-btn" id="exportJson">تصدير JSON</button>
+            <div class="carousel-indicators" id="carouselIndicators">
+                <button class="carousel-indicator active"></button>
+                <button class="carousel-indicator"></button>
+                <button class="carousel-indicator"></button>
             </div>
-            
-            <div class="json-export-container" style="display: none;">
-                <h3>نسخ JSON لتحديث الموقع:</h3>
-                <textarea class="json-export" id="jsonExport" readonly></textarea>
-                <p>انسخ هذا النص واستبدل به محتوى الـ JSON في ملف HTML الخاص بك</p>
+        </div>
+    </section>
+    
+    <!-- Menu Sections -->
+    <main class="menu">
+        <!-- Manaqeesh Section -->
+        <section class="menu-section" id="manaqeesh">
+            <h2 class="section-title">المناقيش</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة زعتر">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">منقوشة زعتر</h3>
+                        <p class="item-description">عجينة رقيقة مغطاة بزعتر ممزوج بزيت الزيتون والسمسم</p>
+                        <div class="item-footer">
+                            <span class="item-price">12 ر.س</span>
+                            <button class="add-to-cart" data-id="1" data-name="منقوشة زعتر" data-price="12" data-image="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة جبنة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">منقوشة جبنة</h3>
+                        <p class="item-description">عجينة رقيقة مغطاة بمزيج من الجبنة الذائبة</p>
+                        <div class="item-footer">
+                            <span class="item-price">15 ر.س</span>
+                            <button class="add-to-cart" data-id="2" data-name="منقوشة جبنة" data-price="15" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة لحم مفروم">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">منقوشة لحم مفروم</h3>
+                        <p class="item-description">عجينة رقيقة مغطاة بلحم مفروم مع بهارات خاصة</p>
+                        <div class="item-footer">
+                            <span class="item-price">18 ر.س</span>
+                            <button class="add-to-cart" data-id="3" data-name="منقوشة لحم مفروم" data-price="18" data-image="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">منقوشة سبانخ</h3>
+                        <p class="item-description">عجينة رقيقة مغطاة بسبانخ طازجة مع ليمون وزيت زيتون</p>
+                        <div class="item-footer">
+                            <span class="item-price">14 ر.س</span>
+                            <button class="add-to-cart" data-id="4" data-name="منقوشة سبانخ" data-price="14" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sandwiches Section -->
+        <section class="menu-section" id="sandwiches">
+            <h2 class="section-title">سندويشات</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سندويش شاورما دجاج">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سندويش شاورما دجاج</h3>
+                        <p class="item-description">شاورما دجاج مع خضار طازجة وصلصة الثوم</p>
+                        <div class="item-footer">
+                            <span class="item-price">16 ر.س</span>
+                            <button class="add-to-cart" data-id="5" data-name="سندويش شاورما دجاج" data-price="16" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سندويش كباب">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سندويش كباب</h3>
+                        <p class="item-description">لحم كباب مشوي مع خضار طازجة وصلصة الطحينة</p>
+                        <div class="item-footer">
+                            <span class="item-price">18 ر.س</span>
+                            <button class="add-to-cart" data-id="6" data-name="سندويش كباب" data-price="18" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سندويش فلافل">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سندويش فلافل</h3>
+                        <p class="item-description">فلافل مقرمشة مع خضار طازجة وطحينة</p>
+                        <div class="item-footer">
+                            <span class="item-price">10 ر.س</span>
+                            <button class="add-to-cart" data-id="7" data-name="سندويش فلافل" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Meals Section -->
+        <section class="menu-section" id="meals">
+            <h2 class="section-title">وجبات</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="وجبة شاورما دجاج">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">وجبة شاورما دجاج</h3>
+                        <p class="item-description">شاورما دجاج مع أرز وخضار مشوية وصلصة الثوم</p>
+                        <div class="item-footer">
+                            <span class="item-price">25 ر.س</span>
+                            <button class="add-to-cart" data-id="8" data-name="وجبة شاورما دجاج" data-price="25" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="وجبة كباب">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">وجبة كباب</h3>
+                        <p class="item-description">لحم كباب مشوي مع أرز وخضار مشوية وصلصة الطحينة</p>
+                        <div class="item-footer">
+                            <span class="item-price">30 ر.س</span>
+                            <button class="add-to-cart" data-id="9" data-name="وجبة كباب" data-price="30" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="وجبة مشاوي">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">وجبة مشاوي</h3>
+                        <p class="item-description">مشكلة مشاوي مع أرز وخضار مشوية</p>
+                        <div class="item-footer">
+                            <span class="item-price">35 ر.س</span>
+                            <button class="add-to-cart" data-id="10" data-name="وجبة مشاوي" data-price="35" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Salads Section -->
+        <section class="menu-section" id="salads">
+            <h2 class="section-title">سلطات</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سلطة فتوش">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سلطة فتوش</h3>
+                        <p class="item-description">خضار طازجة مع خبز مقرمش وصلصة الليمون</p>
+                        <div class="item-footer">
+                            <span class="item-price">12 ر.س</span>
+                            <button class="add-to-cart" data-id="11" data-name="سلطة فتوش" data-price="12" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سلطة تبولة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سلطة تبولة</h3>
+                        <p class="item-description">برغل مع بقدونس ونعناع وليمون</p>
+                        <div class="item-footer">
+                            <span class="item-price">10 ر.س</span>
+                            <button class="add-to-cart" data-id="12" data-name="سلطة تبولة" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="سلطة يونانية">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">سلطة يونانية</h3>
+                        <p class="item-description">خضار طازجة مع جبنة فيتا وزيتون</p>
+                        <div class="item-footer">
+                            <span class="item-price">15 ر.س</span>
+                            <button class="add-to-cart" data-id="13" data-name="سلطة يونانية" data-price="15" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Drinks Section -->
+        <section class="menu-section" id="drinks">
+            <h2 class="section-title">مشروبات</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="عصير برتقال">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">عصير برتقال</h3>
+                        <p class="item-description">عصير برتقال طازج</p>
+                        <div class="item-footer">
+                            <span class="item-price">8 ر.س</span>
+                            <button class="add-to-cart" data-id="14" data-name="عصير برتقال" data-price="8" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="ليموناضة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">ليموناضة</h3>
+                        <p class="item-description">ليموناضة منعشة بالنعناع</p>
+                        <div class="item-footer">
+                            <span class="item-price">7 ر.س</span>
+                            <button class="add-to-cart" data-id="15" data-name="ليموناضة" data-price="7" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="عصير فراولة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">عصير فراولة</h3>
+                        <p class="item-description">عصير فراولة طازج</p>
+                        <div class="item-footer">
+                            <span class="item-price">9 ر.س</span>
+                            <button class="add-to-cart" data-id="16" data-name="عصير فراولة" data-price="9" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Desserts Section -->
+        <section class="menu-section" id="desserts">
+            <h2 class="section-title">حلويات</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="كنافة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">كنافة</h3>
+                        <p class="item-description">كنافة نابلسية بالقشطة</p>
+                        <div class="item-footer">
+                            <span class="item-price">15 ر.س</span>
+                            <button class="add-to-cart" data-id="17" data-name="كنافة" data-price="15" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="بقلاوة">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بقلاوة</h3>
+                        <p class="item-description">بقلاوة بالفستق الحلبي</p>
+                        <div class="item-footer">
+                            <span class="item-price">12 ر.س</span>
+                            <button class="add-to-cart" data-id="18" data-name="بقلاوة" data-price="12" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="مهلبية">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">مهلبية</h3>
+                        <p class="item-description">مهلبية بالقرفة والمكسرات</p>
+                        <div class="item-footer">
+                            <span class="item-price">10 ر.س</span>
+                            <button class="add-to-cart" data-id="19" data-name="مهلبية" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Cart Button -->
+    <button class="cart-btn" id="cartBtn">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+    </button>
+    
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3 class="cart-title">سلة التسوق</h3>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: #666;">
+                    السلة فارغة
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>المجموع:</span>
+                    <span id="cartTotal">0 ر.س</span>
+                </div>
+                <div class="delivery-address">
+                    <label for="address">عنوان التوصيل <span style="color: var(--primary-red); font-weight:700;">(مطلوب)</span>:</label>
+                    <textarea id="address" placeholder="أدخل عنوان التوصيل للحصول على توصيل سريع" required></textarea>
+                    <div id="addressError" class="address-error" style="display:none;"></div>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">إتمام الطلب عبر الواتساب</button>
             </div>
         </div>
     </div>
-
-    <!-- Your existing script tag remains the same until the closing </script> tag -->
-    <!-- Add this new script for admin functionality -->
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">منقوشة</div>
+            <div class="footer-info">
+                <div class="footer-info-item">
+                    <i>📞</i>
+                    <span dir="ltr" style="unicode-bidi: embed; letter-spacing:1px;">71 - 182 561</span>
+                </div>
+                <div class="footer-info-item">
+                    <i>🕒</i>
+                    <span>يومياً من 8 صباحاً إلى 12 منتصف الليل</span>
+                </div>
+                <div class="footer-info-item">
+                    <i>📍</i>
+                    <span>الرياض، حي العليا، شارع الملك فهد</span>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📘</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 منقوشة. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+    
     <script>
-        // =============================================
-        // Admin Panel Functionality
-        // =============================================
+        // Carousel Functionality
+        const carouselInner = document.getElementById('carouselInner');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
         
-        // Menu data structure (embedded in the HTML)
-        const menuData = {
-            categories: [
-                {
-                    id: "manaqeesh",
-                    name: "المناقيش",
-                    items: [
-                        {
-                            id: "1",
-                            name: "منقوشة زعتر",
-                            description: "عجينة رقيقة مغطاة بزعتر ممزوج بزيت الزيتون والسمسم",
-                            price: 12,
-                            image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                        },
-                        // Add all other items in the same format
-                        {
-                            id: "2",
-                            name: "منقوشة جبنة",
-                            description: "عجينة رقيقة مغطاة بمزيج من الجبنة الذائبة",
-                            price: 15,
-                            image: "https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                        }
-                    ]
-                },
-                // Add all other categories in the same format
-                {
-                    id: "sandwiches",
-                    name: "سندويشات",
-                    items: [
-                        {
-                            id: "5",
-                            name: "سندويش شاورما دجاج",
-                            description: "شاورما دجاج مع خضار طازجة وصلصة الثوم",
-                            price: 16,
-                            image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                        }
-                    ]
-                }
-            ]
-        };
-
-        // Initialize admin panel
-        const adminToggle = document.getElementById('adminToggle');
-        const adminPanel = document.getElementById('admin-panel');
-        const closeAdmin = document.getElementById('closeAdmin');
-        const categoryEditors = document.getElementById('category-editors');
-        const saveChangesBtn = document.getElementById('saveChanges');
-        const exportJsonBtn = document.getElementById('exportJson');
-        const jsonExportContainer = document.querySelector('.json-export-container');
-        const jsonExport = document.getElementById('jsonExport');
-
-        // Toggle admin panel
-        adminToggle.addEventListener('click', () => {
-            adminPanel.style.display = 'block';
-            renderAdminPanel();
-        });
-
-        closeAdmin.addEventListener('click', () => {
-            adminPanel.style.display = 'none';
-        });
-
-        // Render admin panel with editable fields
-        function renderAdminPanel() {
-            categoryEditors.innerHTML = '';
+        function updateCarousel() {
+            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
             
-            menuData.categories.forEach(category => {
-                const categoryEditor = document.createElement('div');
-                categoryEditor.className = 'category-editor';
-                
-                categoryEditor.innerHTML = `
-                    <h3 class="category-title">${category.name}</h3>
-                    <div class="items-container" id="items-${category.id}"></div>
-                    <button class="admin-btn" onclick="addNewItem('${category.id}')" style="background-color: #2a9d8f; margin-top: 10px;">
-                        + إضافة عنصر جديد
-                    </button>
-                `;
-                
-                categoryEditors.appendChild(categoryEditor);
-                
-                // Render items for this category
-                const itemsContainer = document.getElementById(`items-${category.id}`);
-                category.items.forEach(item => {
-                    itemsContainer.appendChild(createItemEditor(category.id, item));
-                });
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
             });
         }
-
-        // Create item editor element
-        function createItemEditor(categoryId, item) {
-            const itemEditor = document.createElement('div');
-            itemEditor.className = 'item-editor';
-            itemEditor.dataset.id = item.id;
-            
-            itemEditor.innerHTML = `
-                <div class="form-group">
-                    <label>اسم العنصر:</label>
-                    <input type="text" value="${item.name}" class="item-name">
-                </div>
-                <div class="form-group">
-                    <label>الوصف:</label>
-                    <textarea class="item-description">${item.description}</textarea>
-                </div>
-                <div class="form-group">
-                    <label>السعر (ر.س):</label>
-                    <input type="number" value="${item.price}" class="item-price" step="0.1">
-                </div>
-                <div class="form-group">
-                    <label>رابط الصورة:</label>
-                    <input type="text" value="${item.image}" class="item-image">
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <button class="admin-btn" onclick="updateItem('${categoryId}', '${item.id}')" style="background-color: var(--secondary-yellow);">
-                        تحديث
-                    </button>
-                    <button class="admin-btn" onclick="removeItem('${categoryId}', '${item.id}')" style="background-color: var(--primary-red);">
-                        حذف
-                    </button>
-                </div>
-            `;
-            
-            return itemEditor;
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateCarousel();
         }
-
-        // Add new item to category
-        function addNewItem(categoryId) {
-            const category = menuData.categories.find(c => c.id === categoryId);
-            if (!category) return;
-            
-            const newId = Date.now().toString(); // Generate unique ID
-            const newItem = {
-                id: newId,
-                name: "عنصر جديد",
-                description: "وصف العنصر",
-                price: 0,
-                image: ""
-            };
-            
-            category.items.push(newItem);
-            
-            // Add to UI
-            const itemsContainer = document.getElementById(`items-${categoryId}`);
-            itemsContainer.appendChild(createItemEditor(categoryId, newItem));
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateCarousel();
         }
-
-        // Update item
-        function updateItem(categoryId, itemId) {
-            const category = menuData.categories.find(c => c.id === categoryId);
-            if (!category) return;
+        
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+        
+        // Auto slide
+        let carouselInterval = setInterval(nextSlide, 5000);
+        
+        carouselInner.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+        
+        carouselInner.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(nextSlide, 5000);
+        });
+        
+        // Category Navigation
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuSections = document.querySelectorAll('.menu-section');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const category = btn.getAttribute('data-category');
+                const targetSection = document.getElementById(category);
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Calculate offset for sticky nav and header
+                const header = document.querySelector('header');
+                const nav = document.querySelector('nav');
+                const headerHeight = header.offsetHeight;
+                const navHeight = nav.offsetHeight;
+                const totalOffset = headerHeight + navHeight + 16; // 16px extra space
+                const sectionTop = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: sectionTop - totalOffset,
+                    behavior: 'smooth'
+                });
+                // Immediately set active category after scroll
+                setTimeout(() => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                }, 400); // matches scroll duration
+            });
+        });
+        
+        // Sticky Category Navigation
+        const nav = document.querySelector('nav');
+        const header = document.querySelector('header');
+        const headerHeight = header.offsetHeight;
+        const navHeight = nav.offsetHeight;
+        const stickyOffset = headerHeight;
+        
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
             
-            const item = category.items.find(i => i.id === itemId);
-            if (!item) return;
-            
-            const itemEditor = document.querySelector(`.item-editor[data-id="${itemId}"]`);
-            
-            item.name = itemEditor.querySelector('.item-name').value;
-            item.description = itemEditor.querySelector('.item-description').value;
-            item.price = parseFloat(itemEditor.querySelector('.item-price').value);
-            item.image = itemEditor.querySelector('.item-image').value;
-            
-            // Update the main menu display
-            updateMenuDisplay();
-        }
-
-        // Remove item
-        function removeItem(categoryId, itemId) {
-            const category = menuData.categories.find(c => c.id === categoryId);
-            if (!category) return;
-            
-            category.items = category.items.filter(i => i.id !== itemId);
-            
-            // Remove from UI
-            const itemEditor = document.querySelector(`.item-editor[data-id="${itemId}"]`);
-            if (itemEditor) {
-                itemEditor.remove();
+            // Make nav sticky
+            if (scrollPosition >= stickyOffset) {
+                nav.classList.add('sticky');
+            } else {
+                nav.classList.remove('sticky');
             }
             
-            // Update the main menu display
-            updateMenuDisplay();
-        }
-
-        // Save changes to localStorage
-        saveChangesBtn.addEventListener('click', () => {
-            localStorage.setItem('menuData', JSON.stringify(menuData));
-            alert('تم حفظ التغييرات بنجاح!');
-            updateMenuDisplay();
+            // Update active category based on scroll position
+            menuSections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - headerHeight - 16; // match offset
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    const category = section.id;
+                    categoryBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-category') === category) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Cart Functionality
+        const cartBtn = document.getElementById('cartBtn');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCart = document.getElementById('closeCart');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        
+        let cart = [];
+        
+        // Toggle cart overlay
+        cartBtn.addEventListener('click', () => {
+            cartOverlay.classList.add('active');
+        });
+        
+        closeCart.addEventListener('click', () => {
+            cartOverlay.classList.remove('active');
         });
 
-        // Export JSON
-        exportJsonBtn.addEventListener('click', () => {
-            jsonExport.value = JSON.stringify(menuData, null, 2);
-            jsonExportContainer.style.display = 'block';
+        // Close cart when clicking outside the cart on wide screens
+        cartOverlay.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) {
+                // If click is directly on the overlay (not inside the cart)
+                if (e.target === cartOverlay) {
+                    cartOverlay.classList.remove('active');
+                }
+            }
         });
-
-        // Update the main menu display
-        function updateMenuDisplay() {
-            // This will regenerate the entire menu based on the current menuData
-            // You'll need to implement this based on your existing menu rendering logic
-            // For now, we'll just reload the page to see changes
-            location.reload();
+        
+        // Add to cart
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const name = btn.getAttribute('data-name');
+                const price = parseFloat(btn.getAttribute('data-price'));
+                const image = btn.getAttribute('data-image');
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                
+                // Animation feedback
+                btn.innerHTML = 'تمت الإضافة!';
+                btn.style.backgroundColor = '#2a9d8f';
+                setTimeout(() => {
+                    btn.innerHTML = 'أضف إلى السلة';
+                    btn.style.backgroundColor = 'var(--primary-red)';
+                }, 1000);
+            });
+        });
+        
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart-message" style="text-align: center; padding: 2rem; color: #666;">السلة فارغة</div>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-name">${item.name}</h4>
+                            <div class="cart-item-price">${item.price} ر.س</div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1">
+                                <button class="quantity-btn plus">+</button>
+                                <button class="remove-item">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Add event listeners to quantity controls
+                document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = e.target.closest('.cart-item').getAttribute('data-id');
+                        const item = cart.find(item => item.id === itemId);
+                        
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = e.target.closest('.cart-item').getAttribute('data-id');
+                        const item = cart.find(item => item.id === itemId);
+                        
+                        item.quantity += 1;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const itemId = e.target.closest('.cart-item').getAttribute('data-id');
+                        const item = cart.find(item => item.id === itemId);
+                        const newQuantity = parseInt(e.target.value);
+                        
+                        if (newQuantity >= 1) {
+                            item.quantity = newQuantity;
+                            updateCart();
+                        } else {
+                            e.target.value = item.quantity;
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = e.target.closest('.cart-item').getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== itemId);
+                        updateCart();
+                    });
+                });
+            }
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `${total.toFixed(2)} ر.س`;
         }
-
-        // Initialize
-        renderAdminPanel();
+        
+        // Checkout functionality
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('السلة فارغة، يرجى إضافة عناصر قبل إتمام الطلب');
+                return;
+            }
+            const address = document.getElementById('address').value.trim();
+            const addressError = document.getElementById('addressError');
+            if (!address) {
+                addressError.textContent = 'يرجى إدخال عنوان التوصيل لإتمام الطلب. العنوان ضروري لضمان سرعة ودقة التوصيل.';
+                addressError.style.display = 'block';
+                addressError.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+                document.getElementById('address').focus();
+                setTimeout(() => { addressError.style.animation = ''; }, 500);
+                return;
+            } else {
+                addressError.style.display = 'none';
+            }
+            // Format order message
+            let message = `مرحباً، أريد طلب التالي من منقوشة:\n\n`;
+            cart.forEach(item => {
+                message += `${item.name} - ${item.quantity} × ${item.price} ر.س = ${item.quantity * item.price} ر.س\n`;
+            });
+            message += `\nالمجموع: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} ر.س\n`;
+            message += `\nعنوان التوصيل: ${address}\n\nشكراً!`;
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            // Redirect to WhatsApp (replace with actual number)
+            window.open(`https://wa.me/966123456789?text=${encodedMessage}`, '_blank');
+        });
+        
+        // Initialize animations when elements come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.menu-item').forEach(item => {
+            observer.observe(item);
+        });
     </script>
 </body>
 </html>
