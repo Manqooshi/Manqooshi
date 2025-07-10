@@ -468,6 +468,11 @@
             z-index: 80;
             transition: var(--transition);
         }
+        .cart-btn .cart-icon {
+            color: var(--secondary-yellow);
+            font-size: 2.1rem;
+            line-height: 1;
+        }
         
         .cart-btn:hover {
             transform: scale(1.1);
@@ -479,14 +484,16 @@
             right: -5px;
             background-color: var(--primary-red);
             color: white;
-            width: 25px;
-            height: 25px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(230,57,70,0.15);
+            border: 2px solid #fff;
         }
         
         .cart-overlay {
@@ -931,7 +938,7 @@
                     <span style="font-size:2.1rem;">🚚</span>
                     <span dir="ltr" style="unicode-bidi: embed; letter-spacing:1px;">71 - 182 561</span>
                 </a>
-                <div class="address">الرياض، حي العليا، شارع الملك فهد</div>
+                <div class="address">صيدا، قرب جامع الزعتري، جانب سناك البابا، مقابل ملحمة خشون</div>
             </div>
         </div>
     </header>
@@ -941,22 +948,19 @@
         <div class="nav-container">
             <ul class="category-list" id="categoryList">
                 <li class="category-item">
-                    <button class="category-btn active" data-category="manaqeesh">المناقيش</button>
+                    <button class="category-btn active" data-category="manaqeesh">مناقيش عادية</button>
                 </li>
                 <li class="category-item">
-                    <button class="category-btn" data-category="sandwiches">سندويشات</button>
+                    <button class="category-btn" data-category="sandwiches">مناقيش اللحوم</button>
                 </li>
                 <li class="category-item">
-                    <button class="category-btn" data-category="meals">وجبات</button>
+                    <button class="category-btn" data-category="meals">بيتزا</button>
                 </li>
                 <li class="category-item">
-                    <button class="category-btn" data-category="salads">سلطات</button>
+                    <button class="category-btn" data-category="salads">معجنات (دزينة)</button>
                 </li>
                 <li class="category-item">
-                    <button class="category-btn" data-category="drinks">مشروبات</button>
-                </li>
-                <li class="category-item">
-                    <button class="category-btn" data-category="desserts">حلويات</button>
+                    <button class="category-btn" data-category="drinks">مرطبات</button>
                 </li>
             </ul>
         </div>
@@ -1004,18 +1008,18 @@
     <main class="menu">
         <!-- Manaqeesh Section -->
         <section class="menu-section" id="manaqeesh">
-            <h2 class="section-title">المناقيش</h2>
+            <h2 class="section-title">مناقيش عادية</h2>
             <div class="menu-items">
                 <div class="menu-item">
                     <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة زعتر">
+                        <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-d040-6230-b245-82a25b3ef1d8/raw?se=2025-07-10T14%3A35%3A59Z&sp=r&sv=2024-08-04&sr=b&scid=f4cd9016-c256-5940-9a90-b547ebbb7a3e&skoid=f71d6506-3cac-498e-b62a-67f9228033a9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-09T19%3A49%3A54Z&ske=2025-07-10T19%3A49%3A54Z&sks=b&skv=2024-08-04&sig=GLKirYRmp6NZjfxtHGJcvDpgMFLAAUJI5yzNBMuKnfQ%3D" alt="منقوشة زعتر">
                     </div>
                     <div class="item-details">
-                        <h3 class="item-name">منقوشة زعتر</h3>
-                        <p class="item-description">عجينة رقيقة مغطاة بزعتر ممزوج بزيت الزيتون والسمسم</p>
+                        <h3 class="item-name">زعتر بلدي</h3>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">12 ر.س</span>
-                            <button class="add-to-cart" data-id="1" data-name="منقوشة زعتر" data-price="12" data-image="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">60000 ل.ل</span>
+                            <button class="add-to-cart" data-id="1" data-name="منقوشة زعتر" data-price="60000" data-image="https://upload.wikimedia.org/wikipedia/commons/2/2e/Manakish_Zaatar.jpg">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1023,14 +1027,14 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة جبنة">
+                        <img src="https://sdmntprnortheu.oaiusercontent.com/files/00000000-7408-61f4-8d20-9b98f51ce759/raw?se=2025-07-10T14%3A32%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=a7de200b-beea-54a2-a0ed-c7aa6c0a3d76&skoid=f71d6506-3cac-498e-b62a-67f9228033a9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-10T11%3A14%3A48Z&ske=2025-07-11T11%3A14%3A48Z&sks=b&skv=2024-08-04&sig=hsCObx14HMtSxySc7R2E2QeJHLy8inVu8ugspzXhVms%3D" alt="منقوشة جبنة عكاوي">
                     </div>
                     <div class="item-details">
-                        <h3 class="item-name">منقوشة جبنة</h3>
-                        <p class="item-description">عجينة رقيقة مغطاة بمزيج من الجبنة الذائبة</p>
+                        <h3 class="item-name"> جبنة عكاوي</h3>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">15 ر.س</span>
-                            <button class="add-to-cart" data-id="2" data-name="منقوشة جبنة" data-price="15" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">150000 ل.ل</span>
+                            <button class="add-to-cart" data-id="2" data-name="منقوشة جبنة" data-price="150000" data-image="https://upload.wikimedia.org/wikipedia/commons/6/6e/Manakish_cheese.jpg">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1038,40 +1042,202 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة لحم مفروم">
+                        <img src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-4558-61fd-b1d3-9c054d4b2119/raw?se=2025-07-10T14%3A38%3A39Z&sp=r&sv=2024-08-04&sr=b&scid=4ca30590-fe7f-5b91-b0a9-50e75d6b2304&skoid=f71d6506-3cac-498e-b62a-67f9228033a9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-10T12%3A45%3A47Z&ske=2025-07-11T12%3A45%3A47Z&sks=b&skv=2024-08-04&sig=%2BSzf2SCy5akSH2ub5eoeNsLZPC%2BiHAPcUGlRABypkTo%3D" alt="منقوشة عكاوي قشقوان">
                     </div>
                     <div class="item-details">
-                        <h3 class="item-name">منقوشة لحم مفروم</h3>
-                        <p class="item-description">عجينة رقيقة مغطاة بلحم مفروم مع بهارات خاصة</p>
+                        <h3 class="item-name">عكاوي + قشقوان</h3>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">18 ر.س</span>
-                            <button class="add-to-cart" data-id="3" data-name="منقوشة لحم مفروم" data-price="18" data-image="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">180000 ل.ل</span>
+                            <button class="add-to-cart" data-id="3" data-name="منقوشة لحم مفروم" data-price="180000" data-image="https://www.tasteofbeirut.com/wp-content/uploads/2014/03/cheese-mankoushe.jpg">
                                 أضف إلى السلة
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://sdmntprnortheu.oaiusercontent.com/files/00000000-3be8-61f4-86b0-1b2e244e8773/raw?se=2025-07-10T14%3A42%3A04Z&sp=r&sv=2024-08-04&sr=b&scid=bc8a03b3-2e94-5dfb-9a6f-adfac0c191c0&skoid=f71d6506-3cac-498e-b62a-67f9228033a9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-10T12%3A45%3A51Z&ske=2025-07-11T12%3A45%3A51Z&sks=b&skv=2024-08-04&sig=AmKbKKDa1Kbh5ldr2TOL5UY2zSyQyW2ZAsnRKeywuWo%3D" alt="منقوشة بلغاري قشقوان">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بلغاري + قشقوان</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">180000 ل.ل</span>
+                            <button class="add-to-cart" data-id="4" data-name="منقوشة سبانخ" data-price="140000" data-image="https://www.tasteofbeirut.com/wp-content/uploads/2014/03/cheese-mankoushe.jpg">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://mangoushehwnar.store/storage/app/public/item/item-6742f8e2ed4ab.webp" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">فور تشيز</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">200000 ل.ل</span>
+                            <button class="add-to-cart" data-id="5" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="menu-item">
                     <div class="item-image">
                         <img src="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="منقوشة سبانخ">
                     </div>
                     <div class="item-details">
-                        <h3 class="item-name">منقوشة سبانخ</h3>
-                        <p class="item-description">عجينة رقيقة مغطاة بسبانخ طازجة مع ليمون وزيت زيتون</p>
+                        <h3 class="item-name">رغيف جبنة</h3>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">14 ر.س</span>
-                            <button class="add-to-cart" data-id="4" data-name="منقوشة سبانخ" data-price="14" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">200000 ل.ل</span>
+                            <button class="add-to-cart" data-id="6" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
                     </div>
+                    
                 </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://www.atyabtabkha.com/wp-content/uploads/2021/10/ef0f590f412cc5e3f8e095ffe26fee61287fbfa5.jpg" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">نص جبنة نص زعتر</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">120000 ل.ل</span>
+                            <button class="add-to-cart" data-id="7" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://img.ananinja.com/media/ninja-catalog-42/restaurants/m4opiwaedmga6aywi8dehjuia5qa/-.png" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بندورة وبصل</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">100000 ل.ل</span>
+                            <button class="add-to-cart" data-id="8" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiu2Y1Qj9yx2bELjpIBKEWrQsm3TTHIjQS_NCnwCLefVh4UGBVg8RjESGaDBSs7HlPYc8&usqp=CAU" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بندورة وبصل وجبنة</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">200000 ل.ل</span>
+                            <button class="add-to-cart" data-id="9" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بندورة وبصل وبلغاري</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">200000 ل.ل</span>
+                            <button class="add-to-cart" data-id="10" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtkvlBI5zTjXLgJ1goXABaKBo3JZ7c2mVHXT4MB4rl_ofBx1phEJ-W6aJI83vid1hsNpc&usqp=CAU" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">بندورة وبصل وزعتر</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">120000 ل.ل</span>
+                            <button class="add-to-cart" data-id="11" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuakf7D_kLfz89X7qhlpvs8UN-06wThWFMk98J_F5wOl9ynnFrVB9AVJB0Tr4LEIahT1E&usqp=CAU" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">خلطة اللبنة</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">120000 ل.ل</span>
+                            <button class="add-to-cart" data-id="12" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://cdn.pickitt.ae/pickitt.ae/public/data/products/71.webp" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">خلطة الكشك</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">120000 ل.ل</span>
+                            <button class="add-to-cart" data-id="13" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="menu-item">
+                    <div class="item-image">
+                        <img src="https://segafredojo.com/cdn/shop/products/SEAGAMENU2021_0007_Layer13.jpg?v=1740768371" alt="منقوشة سبانخ">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">زعتر مع دبس الرمان</h3>
+                        <p class="item-description"></p>
+                        <div class="item-footer">
+                            <span class="item-price">70000 ل.ل</span>
+                            <button class="add-to-cart" data-id="14" data-name="منقوشة سبانخ" data-price="140000" data-image="https://images.unsplash.com/photo-1601050690775-6b2a0a4b0e2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                أضف إلى السلة
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
             </div>
         </section>
         
         <!-- Sandwiches Section -->
         <section class="menu-section" id="sandwiches">
-            <h2 class="section-title">سندويشات</h2>
+            <h2 class="section-title">مناقيش اللحوم</h2>
             <div class="menu-items">
                 <div class="menu-item">
                     <div class="item-image">
@@ -1079,10 +1245,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سندويش شاورما دجاج</h3>
-                        <p class="item-description">شاورما دجاج مع خضار طازجة وصلصة الثوم</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">16 ر.س</span>
-                            <button class="add-to-cart" data-id="5" data-name="سندويش شاورما دجاج" data-price="16" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">160000 ل.ل</span>
+                            <button class="add-to-cart" data-id="5" data-name="سندويش شاورما دجاج" data-price="160000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1094,10 +1260,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سندويش كباب</h3>
-                        <p class="item-description">لحم كباب مشوي مع خضار طازجة وصلصة الطحينة</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">18 ر.س</span>
-                            <button class="add-to-cart" data-id="6" data-name="سندويش كباب" data-price="18" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">180000 ل.ل</span>
+                            <button class="add-to-cart" data-id="6" data-name="سندويش كباب" data-price="180000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1109,10 +1275,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سندويش فلافل</h3>
-                        <p class="item-description">فلافل مقرمشة مع خضار طازجة وطحينة</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">10 ر.س</span>
-                            <button class="add-to-cart" data-id="7" data-name="سندويش فلافل" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">100000 ل.ل</span>
+                            <button class="add-to-cart" data-id="7" data-name="سندويش فلافل" data-price="100000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1123,7 +1289,7 @@
         
         <!-- Meals Section -->
         <section class="menu-section" id="meals">
-            <h2 class="section-title">وجبات</h2>
+            <h2 class="section-title">بيتزا</h2>
             <div class="menu-items">
                 <div class="menu-item">
                     <div class="item-image">
@@ -1131,10 +1297,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">وجبة شاورما دجاج</h3>
-                        <p class="item-description">شاورما دجاج مع أرز وخضار مشوية وصلصة الثوم</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">25 ر.س</span>
-                            <button class="add-to-cart" data-id="8" data-name="وجبة شاورما دجاج" data-price="25" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">250000 ل.ل</span>
+                            <button class="add-to-cart" data-id="8" data-name="وجبة شاورما دجاج" data-price="250000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1146,10 +1312,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">وجبة كباب</h3>
-                        <p class="item-description">لحم كباب مشوي مع أرز وخضار مشوية وصلصة الطحينة</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">30 ر.س</span>
-                            <button class="add-to-cart" data-id="9" data-name="وجبة كباب" data-price="30" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">300000 ل.ل</span>
+                            <button class="add-to-cart" data-id="9" data-name="وجبة كباب" data-price="300000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1161,10 +1327,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">وجبة مشاوي</h3>
-                        <p class="item-description">مشكلة مشاوي مع أرز وخضار مشوية</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">35 ر.س</span>
-                            <button class="add-to-cart" data-id="10" data-name="وجبة مشاوي" data-price="35" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">350000 ل.ل</span>
+                            <button class="add-to-cart" data-id="10" data-name="وجبة مشاوي" data-price="350000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1175,7 +1341,7 @@
         
         <!-- Salads Section -->
         <section class="menu-section" id="salads">
-            <h2 class="section-title">سلطات</h2>
+            <h2 class="section-title">معجنات (دزينة)</h2>
             <div class="menu-items">
                 <div class="menu-item">
                     <div class="item-image">
@@ -1183,10 +1349,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سلطة فتوش</h3>
-                        <p class="item-description">خضار طازجة مع خبز مقرمش وصلصة الليمون</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">12 ر.س</span>
-                            <button class="add-to-cart" data-id="11" data-name="سلطة فتوش" data-price="12" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">120000 ل.ل</span>
+                            <button class="add-to-cart" data-id="11" data-name="سلطة فتوش" data-price="120000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1198,10 +1364,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سلطة تبولة</h3>
-                        <p class="item-description">برغل مع بقدونس ونعناع وليمون</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">10 ر.س</span>
-                            <button class="add-to-cart" data-id="12" data-name="سلطة تبولة" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">100000 ل.ل</span>
+                            <button class="add-to-cart" data-id="12" data-name="سلطة تبولة" data-price="100000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1213,10 +1379,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">سلطة يونانية</h3>
-                        <p class="item-description">خضار طازجة مع جبنة فيتا وزيتون</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">15 ر.س</span>
-                            <button class="add-to-cart" data-id="13" data-name="سلطة يونانية" data-price="15" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">150000 ل.ل</span>
+                            <button class="add-to-cart" data-id="13" data-name="سلطة يونانية" data-price="150000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1227,7 +1393,7 @@
         
         <!-- Drinks Section -->
         <section class="menu-section" id="drinks">
-            <h2 class="section-title">مشروبات</h2>
+            <h2 class="section-title">مرطبات</h2>
             <div class="menu-items">
                 <div class="menu-item">
                     <div class="item-image">
@@ -1235,10 +1401,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">عصير برتقال</h3>
-                        <p class="item-description">عصير برتقال طازج</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">8 ر.س</span>
-                            <button class="add-to-cart" data-id="14" data-name="عصير برتقال" data-price="8" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">80000 ل.ل</span>
+                            <button class="add-to-cart" data-id="14" data-name="عصير برتقال" data-price="80000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1250,10 +1416,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">ليموناضة</h3>
-                        <p class="item-description">ليموناضة منعشة بالنعناع</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">7 ر.س</span>
-                            <button class="add-to-cart" data-id="15" data-name="ليموناضة" data-price="7" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">70000 ل.ل</span>
+                            <button class="add-to-cart" data-id="15" data-name="ليموناضة" data-price="70000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1265,10 +1431,10 @@
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">عصير فراولة</h3>
-                        <p class="item-description">عصير فراولة طازج</p>
+                        <p class="item-description"></p>
                         <div class="item-footer">
-                            <span class="item-price">9 ر.س</span>
-                            <button class="add-to-cart" data-id="16" data-name="عصير فراولة" data-price="9" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                            <span class="item-price">90000 ل.ل</span>
+                            <button class="add-to-cart" data-id="16" data-name="عصير فراولة" data-price="90000" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
                                 أضف إلى السلة
                             </button>
                         </div>
@@ -1277,62 +1443,11 @@
             </div>
         </section>
         
-        <!-- Desserts Section -->
-        <section class="menu-section" id="desserts">
-            <h2 class="section-title">حلويات</h2>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="كنافة">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">كنافة</h3>
-                        <p class="item-description">كنافة نابلسية بالقشطة</p>
-                        <div class="item-footer">
-                            <span class="item-price">15 ر.س</span>
-                            <button class="add-to-cart" data-id="17" data-name="كنافة" data-price="15" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
-                                أضف إلى السلة
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="بقلاوة">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">بقلاوة</h3>
-                        <p class="item-description">بقلاوة بالفستق الحلبي</p>
-                        <div class="item-footer">
-                            <span class="item-price">12 ر.س</span>
-                            <button class="add-to-cart" data-id="18" data-name="بقلاوة" data-price="12" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
-                                أضف إلى السلة
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="مهلبية">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">مهلبية</h3>
-                        <p class="item-description">مهلبية بالقرفة والمكسرات</p>
-                        <div class="item-footer">
-                            <span class="item-price">10 ر.س</span>
-                            <button class="add-to-cart" data-id="19" data-name="مهلبية" data-price="10" data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
-                                أضف إلى السلة
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
     
     <!-- Cart Button -->
     <button class="cart-btn" id="cartBtn">
-        🛒
+        <span class="cart-icon">🛒</span>
         <span class="cart-count" id="cartCount">0</span>
     </button>
     
@@ -1352,7 +1467,7 @@
             <div class="cart-footer">
                 <div class="cart-total">
                     <span>المجموع:</span>
-                    <span id="cartTotal">0 ر.س</span>
+                    <span id="cartTotal">0 ل.ل</span>
                 </div>
                 <div class="delivery-address">
                     <label for="address">عنوان التوصيل <span style="color: var(--primary-red); font-weight:700;">(مطلوب)</span>:</label>
@@ -1375,11 +1490,11 @@
                 </div>
                 <div class="footer-info-item">
                     <i>🕒</i>
-                    <span>يومياً من 8 صباحاً إلى 12 منتصف الليل</span>
+                    <span>نفتح يومياً من ٨:٠٠ صباحاً حتى ٢:٠٠ ظهراً ومن ٦:٠٠ مساءً حتى ١١:٠٠ مساءً (ما عدا يوم الجمعة عطلة)</span>
                 </div>
                 <div class="footer-info-item">
                     <i>📍</i>
-                    <span>الرياض، حي العليا، شارع الملك فهد</span>
+                    <span>صيدا، قرب جامع الزعتري، جانب سناك البابا، مقابل ملحمة خشون</span>
                 </div>
             </div>
             <div class="social-links">
@@ -1547,13 +1662,16 @@
         addToCartBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
-                const name = btn.getAttribute('data-name');
-                const price = parseFloat(btn.getAttribute('data-price'));
+                // Get name from .item-name in the same .menu-item
+                const menuItem = btn.closest('.menu-item');
+                const name = menuItem.querySelector('.item-name').textContent.trim();
                 const image = btn.getAttribute('data-image');
-                
+                // Get price from .item-price in the same .menu-item
+                let priceText = menuItem.querySelector('.item-price').textContent;
+                // Extract number, remove commas and non-digits
+                let price = parseInt(priceText.replace(/[^\d]/g, ''));
                 // Check if item already in cart
                 const existingItem = cart.find(item => item.id === id);
-                
                 if (existingItem) {
                     existingItem.quantity += 1;
                 } else {
@@ -1565,9 +1683,7 @@
                         quantity: 1
                     });
                 }
-                
                 updateCart();
-                
                 // Animation feedback
                 btn.innerHTML = 'تمت الإضافة!';
                 btn.style.backgroundColor = '#2a9d8f';
@@ -1577,6 +1693,11 @@
                 }, 1000);
             });
         });
+        
+        // Add this utility function for formatting numbers with commas
+        function formatPriceWithCommas(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         
         // Update cart UI
         function updateCart() {
@@ -1595,7 +1716,7 @@
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-name">${item.name}</h4>
-                            <div class="cart-item-price">${item.price} ر.س</div>
+                            <div class="cart-item-price">${formatPriceWithCommas(item.price)} ل.ل</div>
                             <div class="cart-item-controls">
                                 <button class="quantity-btn minus">-</button>
                                 <input type="number" class="quantity-input" value="${item.quantity}" min="1">
@@ -1655,7 +1776,7 @@
             
             // Update total
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            cartTotal.textContent = `${total.toFixed(2)} ر.س`;
+            cartTotal.textContent = `${formatPriceWithCommas(total.toFixed(0))} ل.ل`;
         }
         
         // Checkout functionality
@@ -1679,14 +1800,14 @@
             // Format order message
             let message = `مرحباً، أريد طلب التالي من منقوشة:\n\n`;
             cart.forEach(item => {
-                message += `${item.name} - ${item.quantity} × ${item.price} ر.س = ${item.quantity * item.price} ر.س\n`;
+                message += `${item.name} - ${item.quantity} × ${formatPriceWithCommas(item.price)} ل.ل = ${formatPriceWithCommas(item.quantity * item.price)} ل.ل\n`;
             });
-            message += `\nالمجموع: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} ر.س\n`;
+            message += `\nالمجموع: ${formatPriceWithCommas(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(0))} ل.ل\n`;
             message += `\nعنوان التوصيل: ${address}\n\nشكراً!`;
             // Encode message for WhatsApp URL
             const encodedMessage = encodeURIComponent(message);
             // Redirect to WhatsApp (replace with actual number)
-            window.open(`https://wa.me/966123456789?text=${encodedMessage}`, '_blank');
+            window.open(`https://wa.me/96171182561?text=${encodedMessage}`, '_blank');
         });
         
         // Initialize animations when elements come into view
@@ -1701,6 +1822,15 @@
         
         document.querySelectorAll('.menu-item').forEach(item => {
             observer.observe(item);
+        });
+
+        // Format menu item prices with commas on page load
+        document.querySelectorAll('.item-price').forEach(span => {
+            const match = span.textContent.match(/(\d+)/);
+            if (match) {
+                const formatted = formatPriceWithCommas(match[1]);
+                span.textContent = span.textContent.replace(match[1], formatted);
+            }
         });
     </script>
 </body>
