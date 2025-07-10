@@ -51,8 +51,8 @@
         header {
             background-color: white;
             box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
+            /* position: sticky; */
+            /* top: 0; */
             z-index: 100;
             padding: 1rem 2rem;
         }
@@ -106,7 +106,7 @@
             background-color: white;
             box-shadow: var(--shadow);
             position: sticky;
-            top: 80px;
+            top: 0;
             z-index: 90;
             padding: 1rem 0;
         }
@@ -1832,6 +1832,21 @@
                 span.textContent = span.textContent.replace(match[1], formatted);
             }
         });
+
+        // Hide header on scroll down, show on scroll up (nav stays sticky)
+        let lastScrollTop = 0;
+        const headerEl = document.querySelector('header');
+        window.addEventListener('scroll', function() {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 100) {
+                // Scroll down
+                headerEl.style.transform = 'translateY(-100%)';
+            } else {
+                // Scroll up
+                headerEl.style.transform = '';
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        }, false);
     </script>
 </body>
 </html>
