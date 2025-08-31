@@ -70,6 +70,14 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        .shop-address {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+        }
+
         /* Category Navigation */
         .category-nav {
             background: white;
@@ -151,13 +159,13 @@
         /* Cart Icon */
         .cart-icon-container {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            bottom: 30px;
+            right: 30px;
             z-index: 1001;
             background: var(--gradient-primary);
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -360,6 +368,74 @@
             transition: all 0.3s ease;
         }
 
+        .cart-item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .cart-item-price {
+            color: var(--secondary-green);
+            font-weight: bold;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: white;
+            border-radius: 20px;
+            padding: 0.25rem;
+            border: 1px solid #ddd;
+        }
+
+        .quantity-btn {
+            background: var(--light-grey);
+            border: none;
+            color: var(--dark-text);
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            background: #ccc;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quantity-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--dark-text);
+        }
+
         .cart-item:hover {
             background: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -461,10 +537,10 @@
             }
 
             .cart-icon-container {
-                top: 15px;
-                left: 15px;
-                width: 50px;
-                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
             }
 
             .cart-icon {
@@ -481,8 +557,36 @@
                 width: 100%;
             }
 
+            .cart-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .cart-item-controls {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .quantity-controls {
+                order: 1;
+            }
+
+            .cart-item-price {
+                order: 2;
+            }
+
+            .remove-item-btn {
+                order: 3;
+            }
+
             .main-title {
                 font-size: 2rem;
+            }
+
+            .shop-address {
+                font-size: 1rem;
+                margin-top: 0.3rem;
             }
 
             .logo {
@@ -543,9 +647,10 @@
 
     <header class="header">
         <div class="logo-container">
-            <img src="IMG-20250830-WA0038.jpg" alt="فرن لبنان Logo" class="logo">
+            <img src="C:\Users\malik\Downloads\IMG-20250830-WA0038.jpg" alt="فرن لبنان Logo" class="logo">
         </div>
         <h1 class="main-title">فرن لبنان</h1>
+        <div class="shop-address">منطقة عبرا، مقابل محلات شمسين والأخضر</div>
     </header>
 
     <!-- Category Navigation -->
@@ -598,7 +703,7 @@
                     </div>
                     <div class="address-input">
                         <label for="address">العنوان (إلزامي):</label>
-                        <input type="text" id="address" placeholder="صيدا، عبرا" required>
+                        <input type="text" id="address" placeholder="أدخل العنوان هنا" required>
                     </div>
                     <button id="checkout-btn">إرسال الطلب عبر واتساب</button>
                 </div>
@@ -609,55 +714,55 @@
     <script>
         const menuData = {
             'مناقيش عادية': [
-                { name: 'جبنة عكاوي', price: 180, extraPrice: 250 },
-                { name: 'عكاوي + قشقوان', price: 250, extraPrice: 300 },
-                { name: 'بلغاري + قشقوان', price: 250, extraPrice: 300 },
-                { name: 'فور تشيز', price: 250, extraPrice: 300 },
-                { name: 'رغيف جبنة', price: 300, extraPrice: 350 },
-                { name: 'نص جبنة نص زعتر', price: 130, extraPrice: 200 },
-                { name: 'بندورة وبصل', price: 150, extraPrice: 200 },
-                { name: 'بندورة وبصل وجبنة', price: 300, extraPrice: 350 },
-                { name: 'بندورة وبصل وبلغاري', price: 300, extraPrice: 350 },
-                { name: 'بندورة وبصل وزعتر', price: 100, extraPrice: 150 },
-                { name: 'خلطة اللبنة', price: 150, extraPrice: 200 },
-                { name: 'خلطة الكشك', price: 150, extraPrice: 200 },
-                { name: 'زعتر مع دبس الرمان', price: 90 },
-                { name: 'زعتر بلدي', price: 80 },
-                { name: 'زيادة فطر ذرة', price: 80 }
+                { name: 'جبنة عكاوي', price: 180000, extraPrice: 250000 },
+                { name: 'عكاوي + قشقوان', price: 250000, extraPrice: 300000 },
+                { name: 'بلغاري + قشقوان', price: 250000, extraPrice: 300000 },
+                { name: 'فور تشيز', price: 250000, extraPrice: 300000 },
+                { name: 'رغيف جبنة', price: 300000, extraPrice: 350000 },
+                { name: 'نص جبنة نص زعتر', price: 130000, extraPrice: 200000 },
+                { name: 'بندورة وبصل', price: 150000, extraPrice: 200000 },
+                { name: 'بندورة وبصل وجبنة', price: 300000, extraPrice: 350000 },
+                { name: 'بندورة وبصل وبلغاري', price: 300000, extraPrice: 350000 },
+                { name: 'بندورة وبصل وزعتر', price: 100000, extraPrice: 150000 },
+                { name: 'خلطة اللبنة', price: 150000, extraPrice: 200000 },
+                { name: 'خلطة الكشك', price: 150000, extraPrice: 200000 },
+                { name: 'زعتر مع دبس الرمان', price: 90000 },
+                { name: 'زعتر بلدي', price: 80000 },
+                { name: 'زيادة فطر ذرة', price: 80000 }
             ],
             'مناقيش اللحوم': [
-                { name: 'لحمة بعجين', price: 250, extraPrice: 300 },
-                { name: 'كفتة / كفتة مع جبنة', price: 300, extraPrice: 350 },
-                { name: 'مرتديلا + جبنة', price: 300, extraPrice: 350 },
-                { name: 'سجق + جبنة', price: 300, extraPrice: 350 },
-                { name: 'قاورما + جبنة', price: 350, extraPrice: 400 },
-                { name: 'طاووق + جبنة', price: 350, extraPrice: 400 },
-                { name: 'فاهيتا + جبنة', price: 350, extraPrice: 400 }
+                { name: 'لحمة بعجين', price: 250000, extraPrice: 300000 },
+                { name: 'كفتة / كفتة مع جبنة', price: 300000, extraPrice: 350000 },
+                { name: 'مرتديلا + جبنة', price: 300000, extraPrice: 350000 },
+                { name: 'سجق + جبنة', price: 300000, extraPrice: 350000 },
+                { name: 'قاورما + جبنة', price: 350000, extraPrice: 400000 },
+                { name: 'طاووق + جبنة', price: 350000, extraPrice: 400000 },
+                { name: 'فاهيتا + جبنة', price: 350000, extraPrice: 400000 }
             ],
             'معجنات': [
-                { name: 'زعتر وجبنة', price: 80 },
-                { name: 'سبانخ', price: 70 },
-                { name: 'جبنة', price: 50 },
-                { name: 'كشك', price: 80 },
-                { name: 'بيتزا', price: 300, extraPrice: 400 },
-                { name: 'لحمة', price: 250, extraPrice: 300 },
-                { name: 'معجنات مشكل', price: 300, extraPrice: 350 }
+                { name: 'زعتر وجبنة', price: 80000 },
+                { name: 'سبانخ', price: 70000 },
+                { name: 'جبنة', price: 50000 },
+                { name: 'كشك', price: 80000 },
+                { name: 'بيتزا', price: 300000, extraPrice: 400000 },
+                { name: 'لحمة', price: 250000, extraPrice: 300000 },
+                { name: 'معجنات مشكل', price: 300000, extraPrice: 350000 }
             ],
             'بيتزا': [
-                { name: 'بيتزا مرتديلا', price: 400, extraPrice: 500 },
-                { name: 'بيتزا سجق', price: 400, extraPrice: 500 },
-                { name: 'بيتزا قاورما', price: 500, extraPrice: 600 },
-                { name: 'بيتزا بيبيروني', price: 400, extraPrice: 500 },
-                { name: 'بيتزا تونا', price: 450, extraPrice: 550 },
-                { name: 'بيتزا خضار', price: 350, extraPrice: 450 }
+                { name: 'بيتزا مرتديلا', price: 400000, extraPrice: 500000 },
+                { name: 'بيتزا سجق', price: 400000, extraPrice: 500000 },
+                { name: 'بيتزا قاورما', price: 500000, extraPrice: 600000 },
+                { name: 'بيتزا بيبيروني', price: 400000, extraPrice: 500000 },
+                { name: 'بيتزا تونا', price: 450000, extraPrice: 550000 },
+                { name: 'بيتزا خضار', price: 350000, extraPrice: 450000 }
             ],
             'مشروبات': [
-                { name: 'مشروبات غازية', price: 350 },
-                { name: 'لبن', price: 350 },
-                { name: 'عصير', price: 400 },
-                { name: 'مياه', price: 350 },
-                { name: 'بون جوس', price: 450 },
-                { name: 'مرطبات', price: 80 }
+                { name: 'مشروبات غازية', price: 350000 },
+                { name: 'لبن', price: 350000 },
+                { name: 'عصير', price: 400000 },
+                { name: 'مياه', price: 350000 },
+                { name: 'بون جوس', price: 450000 },
+                { name: 'مرطبات', price: 80000 }
             ]
         };
 
@@ -669,6 +774,11 @@
         const cartSidebar = document.getElementById('cart-sidebar');
         const cartToggleIcon = document.querySelector('.cart-toggle-icon');
         const cartBadge = document.getElementById('cart-badge');
+
+        // Function to format prices with comma separators
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
 
         // Category navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
@@ -696,7 +806,7 @@
                 const listId = document.getElementById(getCategoryId(category));
                 menuData[category].forEach(item => {
                     const extra = item.extraPrice ? `<div class="extra-option">
-                        <label><input type="checkbox" data-price="${item.extraPrice - item.price}"> اكسترا (+${item.extraPrice - item.price} LBP)</label>
+                        <label><input type="checkbox" data-price="${item.extraPrice - item.price}"> اكسترا (+${formatPrice(item.extraPrice - item.price)} LBP)</label>
                     </div>` : '';
                     const itemHTML = `
                         <div class="menu-item">
@@ -704,7 +814,7 @@
                                 <div class="item-info">
                                     <div class="item-name">${item.name}</div>
                                 </div>
-                                <div class="item-price">${item.price} LBP</div>
+                                <div class="item-price">${formatPrice(item.price)} LBP</div>
                                 <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}">أضف إلى السلة</button>
                             </div>
                             ${extra}
@@ -749,14 +859,24 @@
                 const extraText = item.isExtra ? ' (اكسترا)' : '';
                 const itemHTML = `
                     <li class="cart-item">
-                        <span>${item.name}${extraText} (x${item.quantity})</span>
-                        <span>${item.price * item.quantity} LBP</span>
-                        <button class="remove-item-btn" data-index="${index}">&times;</button>
+                        <div class="cart-item-content">
+                            <div class="cart-item-name">${item.name}${extraText}</div>
+                            <div class="cart-item-price">${formatPrice(item.price)} LBP</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease-btn" data-index="${index}" ${item.quantity <= 1 ? 'disabled' : ''}>-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn increase-btn" data-index="${index}">+</button>
+                            </div>
+                            <span class="cart-item-price">${formatPrice(item.price * item.quantity)} LBP</span>
+                            <button class="remove-item-btn" data-index="${index}">&times;</button>
+                        </div>
                     </li>
                 `;
                 cartItemsList.innerHTML += itemHTML;
             });
-            totalPriceEl.textContent = `${total} LBP`;
+            totalPriceEl.textContent = `${formatPrice(total)} LBP`;
             
             // Don't auto-open cart - removed this functionality
             // if (cart.length > 0) {
@@ -776,6 +896,27 @@
             cart.splice(index, 1);
             renderCart();
             updateCartBadge();
+        }
+
+        function increaseQuantity(index) {
+            if (index >= 0 && index < cart.length) {
+                cart[index].quantity++;
+                renderCart();
+                updateCartBadge();
+            }
+        }
+
+        function decreaseQuantity(index) {
+            if (index >= 0 && index < cart.length) {
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity--;
+                    renderCart();
+                    updateCartBadge();
+                } else {
+                    // If quantity becomes 0, remove the item
+                    removeFromCart(index);
+                }
+            }
         }
 
         function toggleCart() {
@@ -803,6 +944,16 @@
                 const index = parseInt(event.target.dataset.index);
                 removeFromCart(index);
             }
+
+            if (event.target.classList.contains('increase-btn')) {
+                const index = parseInt(event.target.dataset.index);
+                increaseQuantity(index);
+            }
+
+            if (event.target.classList.contains('decrease-btn')) {
+                const index = parseInt(event.target.dataset.index);
+                decreaseQuantity(index);
+            }
         });
         
         checkoutBtn.addEventListener('click', function() {
@@ -817,11 +968,11 @@
             
             cart.forEach(item => {
                 const extraText = item.isExtra ? ' (اكسترا)' : '';
-                message += `${item.name}${extraText} (x${item.quantity}) - ${item.price * item.quantity} ل.ل\n`;
+                message += `${item.name}${extraText} (x${item.quantity}) - ${formatPrice(item.price * item.quantity)} ل.ل\n`;
                 total += item.price * item.quantity;
             });
 
-            message += `\nالمجموع الكلي: ${total} ل.ل`;
+            message += `\nالمجموع الكلي: ${formatPrice(total)} ل.ل`;
             message += `\nالعنوان: ${address}`;
             message += `\n\nشكراً!`;
 
