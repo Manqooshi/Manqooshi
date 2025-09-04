@@ -257,6 +257,24 @@
             width: 100%;
         }
 
+        .item-media {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-left: 10px;
+            background: #f5f5f5;
+            border: 1px solid #eee;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .menu-item:last-child {
             border-bottom: none;
         }
@@ -671,7 +689,7 @@
 
     <header class="header">
         <div class="logo-container">
-            <img src="IMG-20250830-WA0038.jpg" alt="فرن لبنان Logo" class="logo">
+            <img src="C:\Users\malik\Downloads\IMG-20250830-WA0038.jpg" alt="فرن لبنان Logo" class="logo">
         </div>
         <h1 class="main-title">فرن لبنان</h1>
         <div class="shop-address">منطقة عبرا، مقابل محلات شمسين والأخضر</div>
@@ -742,54 +760,54 @@
     <script>
         const menuData = {
             'مناقيش عادية': [
-                { name: 'جبنة عكاوي', price: 180000, extraPrice: 250000 },
-                { name: 'عكاوي + قشقوان', price: 250000, extraPrice: 300000 },
-                { name: 'بلغاري + قشقوان', price: 250000, extraPrice: 300000 },
-                { name: 'فور تشيز', price: 250000, extraPrice: 300000 },
-                { name: 'رغيف جبنة', price: 300000, extraPrice: 350000 },
-                { name: 'نص جبنة نص زعتر', price: 130000, extraPrice: 200000 },
-                { name: 'بندورة وبصل', price: 150000, extraPrice: 200000 },
-                { name: 'بندورة وبصل وجبنة', price: 300000, extraPrice: 350000 },
-                { name: 'بندورة وبصل وبلغاري', price: 300000, extraPrice: 350000 },
-                { name: 'بندورة وبصل وزعتر', price: 100000, extraPrice: 150000 },
-                { name: 'خلطة اللبنة', price: 150000, extraPrice: 200000 },
-                { name: 'خلطة الكشك', price: 150000, extraPrice: 200000 },
-                { name: 'زعتر مع دبس الرمان', price: 80000, extraPrice: 90000 },
-                { name: 'زعتر بلدي', price: 70000, extraPrice: 80000 },
-                { name: 'زيادة فطر ذرة', price: 50000 },
+                { name: 'جبنة عكاوي', price: 180000, extraPrice: 250000, image: 'https://www.justfood.tv/UserFiles/CHEESE-2-16-21_JUSTFOOD.jpg' },
+                { name: 'عكاوي + قشقوان', price: 250000, extraPrice: 300000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'بلغاري + قشقوان', price: 250000, extraPrice: 300000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'فور تشيز', price: 250000, extraPrice: 300000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'رغيف جبنة', price: 300000, extraPrice: 350000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'نص جبنة نص زعتر', price: 130000, extraPrice: 200000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'بندورة وبصل', price: 150000, extraPrice: 200000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'بندورة وبصل وجبنة', price: 300000, extraPrice: 350000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'بندورة وبصل وبلغاري', price: 300000, extraPrice: 350000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'بندورة وبصل وزعتر', price: 100000, extraPrice: 150000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'خلطة اللبنة', price: 150000, extraPrice: 200000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'خلطة الكشك', price: 150000, extraPrice: 200000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'زعتر مع دبس الرمان', price: 80000, extraPrice: 90000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'زعتر بلدي', price: 70000, extraPrice: 80000, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPTScVUsvmIlAoVHW3AxvV5jEYYP9Kf-A21A&s' },
+                { name: 'زيادة فطر ذرة', price: 50000, image: '' },
             ],
             'مناقيش اللحوم': [
-                { name: 'لحمة بعجين', price: 250000, extraPrice: 300000 },
-                { name: 'كفتة / كفتة مع جبنة', price: 300000, extraPrice: 350000 },
-                { name: 'مرتديلا + جبنة', price: 300000, extraPrice: 350000 },
-                { name: 'سجق + جبنة', price: 300000, extraPrice: 350000 },
-                { name: 'قاورما + جبنة', price: 350000, extraPrice: 400000 },
-                { name: 'طاووق + جبنة', price: 350000, extraPrice: 400000 },
-                { name: 'فاهيتا + جبنة', price: 350000, extraPrice: 400000 }
+                { name: 'لحمة بعجين', price: 250000, extraPrice: 300000, image: 'https://via.placeholder.com/140?text=%D9%84%D8%AD%D9%85%D8%A9' },
+                { name: 'كفتة / كفتة مع جبنة', price: 300000, extraPrice: 350000, image: '' },
+                { name: 'مرتديلا + جبنة', price: 300000, extraPrice: 350000, image: '' },
+                { name: 'سجق + جبنة', price: 300000, extraPrice: 350000, image: '' },
+                { name: 'قاورما + جبنة', price: 350000, extraPrice: 400000, image: '' },
+                { name: 'طاووق + جبنة', price: 350000, extraPrice: 400000, image: '' },
+                { name: 'فاهيتا + جبنة', price: 350000, extraPrice: 400000, image: '' }
             ],
             'معجنات': [
-                { name: 'زعتر وجبنة', price: 350000 },
-                { name: 'سبانخ', price: 350000 },
-                { name: 'جبنة', price: 400000 },
-                { name: 'كشك', price: 350000 },
-                { name: 'بيتزا', price: 450000 },
-                { name: 'لحمة', price: 450000 },
-                { name: 'معجنات مشكل', price: 400000 }
+                { name: 'زعتر وجبنة', price: 350000, image: 'https://via.placeholder.com/140?text=%D8%B2%D8%B9%D8%AA%D8%B1' },
+                { name: 'سبانخ', price: 350000, image: '' },
+                { name: 'جبنة', price: 400000, image: '' },
+                { name: 'كشك', price: 350000, image: '' },
+                { name: 'بيتزا', price: 450000, image: '' },
+                { name: 'لحمة', price: 450000, image: '' },
+                { name: 'معجنات مشكل', price: 400000, image: '' }
             ],
             'بيتزا': [
-                { name: 'بيتزا مرتديلا', price: 400000, extraPrice: 500000 },
-                { name: 'بيتزا سجق', price: 400000, extraPrice: 500000 },
-                { name: 'بيتزا قاورما', price: 500000, extraPrice: 600000 },
-                { name: 'بيتزا بيبيروني', price: 400000, extraPrice: 500000 },
-                { name: 'بيتزا تونا', price: 450000, extraPrice: 550000 },
-                { name: 'بيتزا خضار', price: 350000, extraPrice: 450000 }
+                { name: 'بيتزا مرتديلا', price: 400000, extraPrice: 500000, image: 'https://via.placeholder.com/140?text=%D8%A8%D9%8A%D8%AA%D8%B2%D8%A7' },
+                { name: 'بيتزا سجق', price: 400000, extraPrice: 500000, image: '' },
+                { name: 'بيتزا قاورما', price: 500000, extraPrice: 600000, image: '' },
+                { name: 'بيتزا بيبيروني', price: 400000, extraPrice: 500000, image: '' },
+                { name: 'بيتزا تونا', price: 450000, extraPrice: 550000, image: '' },
+                { name: 'بيتزا خضار', price: 350000, extraPrice: 450000, image: '' }
             ],
             'مشروبات': [
-                { name: 'مشروبات غازية', price: 80000 },
-                { name: 'لبن', price: 80000 },
-                { name: 'عصير', price: 80000 },
-                { name: 'مياه', price: 30000 },
-                { name: 'بون جوس', price: 30000 },
+                { name: 'مشروبات غازية', price: 80000, image: '' },
+                { name: 'لبن', price: 80000, image: '' },
+                { name: 'عصير', price: 80000, image: '' },
+                { name: 'مياه', price: 30000, image: '' },
+                { name: 'بون جوس', price: 30000, image: '' },
             ]
         };
 
@@ -835,9 +853,11 @@
                     const extra = item.extraPrice ? `<div class="extra-option">
                         <label><input type="checkbox" data-price="${item.extraPrice - item.price}"> اكسترا (+${formatPrice(item.extraPrice - item.price)} LBP)</label>
                     </div>` : '';
+                    const media = item.image ? `<div class="item-media"><img src="${item.image}" alt="${item.name}" class="item-image"></div>` : '';
                     const itemHTML = `
                         <div class="menu-item">
                             <div class="item-details">
+                                ${media}
                                 <div class="item-info">
                                     <div class="item-name">${item.name}</div>
                                 </div>
