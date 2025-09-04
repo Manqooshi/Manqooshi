@@ -247,7 +247,7 @@
             background: var(--light-cream);
             border-radius: 10px;
             padding: 1rem;
-            margin: 0 -1rem;
+            margin: 0; /* avoid horizontal overflow on hover */
         }
 
         .item-details {
@@ -255,6 +255,8 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            flex-wrap: wrap; /* allow wrapping on narrow screens */
+            gap: 0.75rem; /* consistent spacing between elements */
         }
 
         .item-media {
@@ -309,7 +311,7 @@
             background: var(--gradient-primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -569,8 +571,48 @@
 
         /* Responsive design */
         @media (max-width: 768px) {
+            html, body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden; /* prevent horizontal scroll */
+            }
+
             .category-nav ul {
                 gap: 0.5rem;
+            }
+            .menu-item {
+                padding: 0.75rem 0; /* slightly tighter on mobile */
+            }
+
+            .item-details {
+                align-items: flex-start;
+            }
+
+            .item-media {
+                width: 64px;
+                height: 64px;
+                margin-left: 0.5rem;
+            }
+
+            .item-info {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .item-price {
+                order: 3; /* place below name on wrap */
+            }
+
+            .add-to-cart-btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                order: 4; /* move to bottom on mobile */
+                border-radius: 12px;
+            }
+
+            .menu-item:hover {
+                margin: 0; /* ensure no overflow on hover */
             }
 
             .category-nav a {
