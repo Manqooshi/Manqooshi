@@ -506,6 +506,30 @@
             box-shadow: 0 0 10px rgba(39, 174, 96, 0.2);
         }
 
+        .delivery-note {
+            background: var(--light-cream);
+            border: 2px solid var(--accent-orange);
+            border-radius: 10px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            line-height: 1.4;
+        }
+
+        .delivery-note i {
+            color: var(--accent-orange);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .delivery-note span {
+            font-weight: 500;
+        }
+
         #checkout-btn {
             width: 100%;
             padding: 1rem;
@@ -705,6 +729,10 @@
                         <label for="address">العنوان (إلزامي):</label>
                         <input type="text" id="address" placeholder="أدخل العنوان هنا" required>
                     </div>
+                    <div class="delivery-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>يرجى العلم بأنه قد يتم تطبيق رسوم إضافية على خدمة التوصيل حسب الموقع</span>
+                    </div>
                     <button id="checkout-btn">إرسال الطلب عبر واتساب</button>
                 </div>
             </div>
@@ -726,9 +754,9 @@
                 { name: 'بندورة وبصل وزعتر', price: 100000, extraPrice: 150000 },
                 { name: 'خلطة اللبنة', price: 150000, extraPrice: 200000 },
                 { name: 'خلطة الكشك', price: 150000, extraPrice: 200000 },
-                { name: 'زعتر مع دبس الرمان', price: 90000 },
-                { name: 'زعتر بلدي', price: 80000 },
-                { name: 'زيادة فطر ذرة', price: 80000 }
+                { name: 'زعتر مع دبس الرمان', price: 80000, extraPrice: 90000 },
+                { name: 'زعتر بلدي', price: 70000, extraPrice: 80000 },
+                { name: 'زيادة فطر ذرة', price: 50000 },
             ],
             'مناقيش اللحوم': [
                 { name: 'لحمة بعجين', price: 250000, extraPrice: 300000 },
@@ -740,13 +768,13 @@
                 { name: 'فاهيتا + جبنة', price: 350000, extraPrice: 400000 }
             ],
             'معجنات': [
-                { name: 'زعتر وجبنة', price: 80000 },
-                { name: 'سبانخ', price: 70000 },
-                { name: 'جبنة', price: 50000 },
-                { name: 'كشك', price: 80000 },
-                { name: 'بيتزا', price: 300000, extraPrice: 400000 },
-                { name: 'لحمة', price: 250000, extraPrice: 300000 },
-                { name: 'معجنات مشكل', price: 300000, extraPrice: 350000 }
+                { name: 'زعتر وجبنة', price: 350000 },
+                { name: 'سبانخ', price: 350000 },
+                { name: 'جبنة', price: 400000 },
+                { name: 'كشك', price: 350000 },
+                { name: 'بيتزا', price: 450000 },
+                { name: 'لحمة', price: 450000 },
+                { name: 'معجنات مشكل', price: 400000 }
             ],
             'بيتزا': [
                 { name: 'بيتزا مرتديلا', price: 400000, extraPrice: 500000 },
@@ -757,12 +785,11 @@
                 { name: 'بيتزا خضار', price: 350000, extraPrice: 450000 }
             ],
             'مشروبات': [
-                { name: 'مشروبات غازية', price: 350000 },
-                { name: 'لبن', price: 350000 },
-                { name: 'عصير', price: 400000 },
-                { name: 'مياه', price: 350000 },
-                { name: 'بون جوس', price: 450000 },
-                { name: 'مرطبات', price: 80000 }
+                { name: 'مشروبات غازية', price: 80000 },
+                { name: 'لبن', price: 80000 },
+                { name: 'عصير', price: 80000 },
+                { name: 'مياه', price: 30000 },
+                { name: 'بون جوس', price: 30000 },
             ]
         };
 
