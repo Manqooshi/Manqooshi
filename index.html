@@ -896,19 +896,41 @@
                         <label><input type="checkbox" data-price="${item.extraPrice - item.price}"> اكسترا (+${formatPrice(item.extraPrice - item.price)} LBP)</label>
                     </div>` : '';
                     const media = item.image ? `<div class="item-media"><img src="${item.image}" alt="${item.name}" class="item-image"></div>` : '';
-                    const itemHTML = `
-                        <div class="menu-item">
-                            <div class="item-details">
-                                ${media}
-                                <div class="item-info">
-                                    <div class="item-name">${item.name}</div>
+                    let itemHTML = '';
+                    if (category === 'مشروبات' && item.name === 'مشروبات غازية') {
+                        itemHTML = `
+                            <div class="menu-item">
+                                <div class="item-details">
+                                    ${media}
+                                    <div class="item-info">
+                                        <div class="item-name">${item.name}</div>
+                                    </div>
+                                    <div class="item-price">${formatPrice(item.price)} LBP</div>
+                                    <div class="extra-option" style="flex-wrap:wrap; gap:0.5rem;">
+                                        <span>اختر النكهة:</span>
+                                        <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}" data-flavor="كولا">كولا</button>
+                                        <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}" data-flavor="برتقال">برتقال</button>
+                                        <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}" data-flavor="حامض">حامض</button>
+                                        <span style="opacity:0.8;">(يمكنك الضغط عدة مرات لزيادة الكمية)</span>
+                                    </div>
                                 </div>
-                                <div class="item-price">${formatPrice(item.price)} LBP</div>
-                                <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}">أضف إلى السلة</button>
                             </div>
-                            ${extra}
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        itemHTML = `
+                            <div class="menu-item">
+                                <div class="item-details">
+                                    ${media}
+                                    <div class="item-info">
+                                        <div class="item-name">${item.name}</div>
+                                    </div>
+                                    <div class="item-price">${formatPrice(item.price)} LBP</div>
+                                    <button class="add-to-cart-btn" data-name="${item.name}" data-price="${item.price}">أضف إلى السلة</button>
+                                </div>
+                                ${extra}
+                            </div>
+                        `;
+                    }
                     listId.innerHTML += itemHTML;
                 });
             }
@@ -924,8 +946,9 @@
             }
         }
 
-        function addToCart(itemName, itemPrice, isExtra, extraPrice) {
-            let existingItem = cart.find(item => item.name === itemName && item.isExtra === isExtra);
+        function addToCart(itemName, itemPrice, isExtra, extraPrice, flavor) {
+            const selectedFlavor = flavor ? String(flavor) : null;
+            let existingItem = cart.find(item => item.name === itemName && item.isExtra === isExtra && item.flavor === selectedFlavor);
             if (existingItem) {
                 existingItem.quantity++;
             } else {
@@ -933,6 +956,7 @@
                     name: itemName,
                     price: isExtra ? extraPrice : itemPrice,
                     isExtra: isExtra,
+                    flavor: selectedFlavor,
                     quantity: 1
                 });
             }
@@ -946,10 +970,11 @@
             cart.forEach((item, index) => {
                 total += item.price * item.quantity;
                 const extraText = item.isExtra ? ' (اكسترا)' : '';
+                const flavorText = item.flavor ? ` (${item.flavor})` : '';
                 const itemHTML = `
                     <li class="cart-item">
                         <div class="cart-item-content">
-                            <div class="cart-item-name">${item.name}${extraText}</div>
+                            <div class="cart-item-name">${item.name}${flavorText}${extraText}</div>
                             <div class="cart-item-price">${formatPrice(item.price)} LBP</div>
                         </div>
                         <div class="cart-item-controls">
@@ -1018,6 +1043,7 @@
                 const button = event.target;
                 const name = button.dataset.name;
                 const price = parseInt(button.dataset.price);
+                const flavor = button.dataset.flavor || null;
                 const itemContainer = button.closest('.menu-item');
                 const extraCheckbox = itemContainer.querySelector('input[type="checkbox"]');
                 let isExtra = false;
@@ -1026,7 +1052,7 @@
                     isExtra = true;
                     extraPrice = price + parseInt(extraCheckbox.dataset.price);
                 }
-                addToCart(name, price, isExtra, extraPrice);
+                addToCart(name, price, isExtra, extraPrice, flavor);
             }
 
             if (event.target.classList.contains('remove-item-btn')) {
@@ -1057,7 +1083,8 @@
             
             cart.forEach(item => {
                 const extraText = item.isExtra ? ' (اكسترا)' : '';
-                message += `${item.name}${extraText} (x${item.quantity}) - ${formatPrice(item.price * item.quantity)} ل.ل\n`;
+                const flavorText = item.flavor ? ` (${item.flavor})` : '';
+                message += `${item.name}${flavorText}${extraText} (x${item.quantity}) - ${formatPrice(item.price * item.quantity)} ل.ل\n`;
                 total += item.price * item.quantity;
             });
 
